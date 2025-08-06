@@ -82,7 +82,9 @@
 		const rootIndex = notes.indexOf(scaleRoot.name);
 		const intervalFromRoot = (((noteIndex - rootIndex) % 12) + 12) % 12;
 		const degreeIndex = activeIntervals.indexOf(intervalFromRoot);
-		return degreeIndex; // Returns -1 if not found, otherwise the index in activeIntervals
+		if (degreeIndex === -1) return -1;
+		// Return the actual degree index, not the position in activeIntervals
+		return activeIntervals[degreeIndex];
 	}
 
 	// Reactive statement - for each string, determine which degree each note is in
@@ -146,13 +148,6 @@
 		// Reindex remaining strings
 		instrumentStrings = instrumentStrings.map((s, i) => ({ ...s, index: i }));
 	}
-
-	const buttonClasses =
-		'flex h-16 w-16 cursor-pointer items-center justify-center rounded-full bg-ctp-mantle text-2xl';
-	const buttonActiveClasses = 'bg-ctp-text text-ctp-crust';
-	const buttonInactiveClasses = 'text-ctp-surface2';
-	const buttonShadow = 'inset 0 0 5px 3px #00000055;';
-	const buttonActiveShadow = '0 0 5px 3px #ffffffaa;';
 </script>
 
 <main>
@@ -263,12 +258,12 @@
 					{/if}
 					<button
 						type="button"
-						class={buttonClasses +
-							(d.active ? ' ' + buttonActiveClasses : ' ' + buttonInactiveClasses)}
-						style={d.active ? `box-shadow: ${buttonActiveShadow}` : `box-shadow: ${buttonShadow}`}
+						class="flex h-16 w-16 cursor-pointer items-center justify-center rounded-full border border-ctp-surface2 bg-ctp-mantle text-2xl {d.active
+							? degreeColors[d.index]
+							: 'text-ctp-surface2'}"
 						on:click={() => {
 							d.active = !d.active;
-							console.log(degrees);
+							console.log(d.index);
 						}}
 					>
 						{d.label}
@@ -280,12 +275,12 @@
 				{#each naturalDegrees as d}
 					<button
 						type="button"
-						class={buttonClasses +
-							(d.active ? ' ' + buttonActiveClasses : ' ' + buttonInactiveClasses)}
-						style={d.active ? `box-shadow: ${buttonActiveShadow}` : `box-shadow: ${buttonShadow}`}
+						class="flex h-16 w-16 cursor-pointer items-center justify-center rounded-full border border-ctp-surface2 bg-ctp-mantle text-2xl {d.active
+							? degreeColors[d.index]
+							: 'text-ctp-surface2'}"
 						on:click={() => {
 							d.active = !d.active;
-							console.log(degrees);
+							console.log(d.index);
 						}}
 					>
 						{d.label}
