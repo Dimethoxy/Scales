@@ -1,2 +1,6 @@
 @import 'tailwindcss';
 @import '@catppuccin/tailwindcss/macchiato.css';
+
+* {
+	font-family: 'Poppins', sans-serif;
+}
