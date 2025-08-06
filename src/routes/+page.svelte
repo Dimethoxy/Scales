@@ -76,20 +76,46 @@
 	// Reactive statement - get active scale degrees (semitone intervals from root)
 	$: activeScaleDegrees = degrees.filter((d) => d.active).map((d) => d.index);
 
-	// Function to check if a note is in the current scale
-	function isNoteInScale(note: Note, scaleRoot: Note, activeIntervals: number[]): boolean {
+	// Function to get the scale degree of a note (returns -1 if not in scale)
+	function getNoteScaleDegree(note: Note, scaleRoot: Note, activeIntervals: number[]): number {
 		const noteIndex = notes.indexOf(note.name);
 		const rootIndex = notes.indexOf(scaleRoot.name);
 		const intervalFromRoot = (((noteIndex - rootIndex) % 12) + 12) % 12;
-		return activeIntervals.includes(intervalFromRoot);
+		const degreeIndex = activeIntervals.indexOf(intervalFromRoot);
+		return degreeIndex; // Returns -1 if not found, otherwise the index in activeIntervals
 	}
 
-	// Reactive statement - for each string, determine which notes are in scale
-	$: stringNotesInScale = instrumentStrings.map((string) =>
+	// Reactive statement - for each string, determine which degree each note is in
+	$: stringNotesDegrees = instrumentStrings.map((string) =>
 		generateStringNotes(string.root).map((note) =>
-			isNoteInScale(note, scaleRoot, activeScaleDegrees)
+			getNoteScaleDegree(note, scaleRoot, activeScaleDegrees)
 		)
 	);
+
+	// Color mapping for scale degrees
+	const degreeColors = [
+		'bg-ctp-red text-ctp-crust', // 1st degree
+		'bg-ctp-peach text-ctp-crust', // 2nd degree
+		'bg-ctp-yellow text-ctp-crust', // 3rd degree
+		'bg-ctp-green text-ctp-crust', // 4th degree
+		'bg-ctp-teal text-ctp-crust', // 5th degree
+		'bg-ctp-blue text-ctp-crust', // 6th degree
+		'bg-ctp-mauve text-ctp-crust', // 7th degree
+		'bg-ctp-pink text-ctp-crust', // 8th degree
+		'bg-ctp-lavender text-ctp-crust', // 9th degree
+		'bg-ctp-sky text-ctp-crust', // 10th degree
+		'bg-ctp-sapphire text-ctp-crust', // 11th degree
+		'bg-ctp-flamingo text-ctp-crust' // 12th degree
+	];
+
+	// Current degree active states (for toggling)
+	let activeDegrees: boolean[] = Array(degrees.length).fill(false);
+
+	// Toggle degree active state
+	function toggleDegree(index: number) {
+		activeDegrees[index] = !activeDegrees[index];
+		degrees[index].active = activeDegrees[index];
+	}
 
 	let numFrets = 24;
 
@@ -207,7 +233,7 @@
 							<!-- Fret positions -->
 							{#each Array(numFrets + 1) as _, fret}
 								{@const note = allStringNotes[stringIndex][fret]}
-								{@const isInScale = stringNotesInScale[stringIndex][fret]}
+								{@const scaleDegree = stringNotesDegrees[stringIndex][fret]}
 								<div class="relative flex h-12 w-12 items-center justify-center">
 									<!-- Fret marker (visual fret line) -->
 									{#if fret > 0}
@@ -221,7 +247,9 @@
 									{#if note}
 										<div
 											class="relative z-10 flex h-8 w-8 items-center justify-center rounded-full text-xs font-bold
-											{isInScale ? 'bg-ctp-blue text-ctp-crust' : 'bg-ctp-surface0 text-ctp-subtext1'}"
+											{scaleDegree >= 0
+												? degreeColors[scaleDegree % degreeColors.length]
+												: 'bg-ctp-surface0 text-ctp-subtext1'}"
 										>
 											{note.name}
 										</div>
