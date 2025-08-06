@@ -227,6 +227,13 @@
 		instrumentStrings = instrumentStrings.map((s, i) => ({ ...s, index: i }));
 	}
 
+	// Move string root up/down by one semitone
+	function retuneString(stringIndex: number, semitones: number) {
+		const root = instrumentStrings[stringIndex].root;
+		instrumentStrings[stringIndex].root = transpose(root, semitones);
+		instrumentStrings = [...instrumentStrings];
+	}
+
 	// Tooltip state
 	let showTooltip = false;
 	let tooltipContent = '';
@@ -252,23 +259,6 @@
 </script>
 
 <main>
-	<!-- Tailwind safelist hack to preserve dynamic bg-ctp-* classes -->
-	<div class="hidden">
-		<div class="bg-ctp-red"></div>
-		<div class="bg-ctp-peach"></div>
-		<div class="bg-ctp-yellow"></div>
-		<div class="bg-ctp-green"></div>
-		<div class="bg-ctp-teal"></div>
-		<div class="bg-ctp-blue"></div>
-		<div class="bg-ctp-mauve"></div>
-		<div class="bg-ctp-pink"></div>
-		<div class="bg-ctp-lavender"></div>
-		<div class="bg-ctp-sky"></div>
-		<div class="bg-ctp-sapphire"></div>
-		<div class="bg-ctp-flamingo"></div>
-		<div class="bg-ctp-mantle"></div>
-	</div>
-
 	<div class="my-2">
 		<!-- String amount controls -->
 		<div class="justify-left mb-4 flex items-center gap-4 px-8">
@@ -329,9 +319,34 @@
 				<div class="mx-1 rounded border border-ctp-surface0 bg-ctp-base">
 					{#each instrumentStrings as string, stringIndex}
 						<div class="flex items-center border-b border-ctp-surface0 last:border-b-0">
-							<!-- String tuning -->
-							<div class="w-16 text-center text-sm font-bold text-ctp-text">
-								{string.root.name}{string.root.octave}
+							<!-- String tuning with invisible chevron buttons -->
+							<div
+								class="flex w-16 items-center justify-center gap-1 text-center text-sm font-bold text-ctp-text"
+							>
+								<!-- Up button (chevron up) -->
+								<button
+									type="button"
+									class="flex h-6 w-6 items-center justify-center border-none bg-transparent p-0 focus:outline-none"
+									title="Tune up"
+									aria-label="Tune string up"
+									on:click={() => retuneString(stringIndex, 1)}
+									style="background: none;"
+								>
+									<i class="fa-solid fa-chevron-up text-ctp-green"></i>
+								</button>
+								<!-- Root label -->
+								<span>{string.root.name}{string.root.octave}</span>
+								<!-- Down button (chevron down) -->
+								<button
+									type="button"
+									class="flex h-6 w-6 items-center justify-center border-none bg-transparent p-0 focus:outline-none"
+									title="Tune down"
+									aria-label="Tune string down"
+									on:click={() => retuneString(stringIndex, -1)}
+									style="background: none;"
+								>
+									<i class="fa-solid fa-chevron-down text-ctp-red"></i>
+								</button>
 							</div>
 
 							<!-- Fret positions -->
