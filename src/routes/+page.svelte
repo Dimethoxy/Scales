@@ -24,21 +24,28 @@
 
 	$: naturalDegrees = degrees.filter((d) => d.row === 'natural');
 	$: accidentalDegrees = degrees.filter((d) => d.row === 'accidental');
+
+	const buttonClasses =
+		'flex h-22 w-22 cursor-pointer items-center justify-center rounded-full bg-ctp-mantle text-4xl';
+	const buttonActiveClasses = 'bg-ctp-text text-ctp-crust';
+	const buttonInactiveClasses = 'text-ctp-surface2';
+	const buttonShadow = 'inset 0 0 5px 3px #00000055;';
+	const buttonActiveShadow = '0 0 5px 3px #ffffffaa;';
 </script>
 
 <main>
 	<div class="my-8">
 		<!-- Accidental degrees -->
-		<div class="flex justify-center gap-1">
+		<div class="flex justify-center gap-3">
 			{#each accidentalDegrees as d}
 				{#if d.spacerBefore}
-					<div class="h-24 w-24"></div>
+					<div class="h-22 w-22"></div>
 				{/if}
 				<button
 					type="button"
-					class="flex h-24 w-24 cursor-pointer items-center justify-center rounded-full bg-ctp-mantle text-3xl text-ctp-surface2"
-					style="box-shadow: inset 0 0 5px 3px #00000055;"
-					class:bg-ctp-blue={d.active}
+					class={buttonClasses +
+						(d.active ? ' ' + buttonActiveClasses : ' ' + buttonInactiveClasses)}
+					style={d.active ? `box-shadow: ${buttonActiveShadow}` : `box-shadow: ${buttonShadow}`}
 					on:click={() => (d.active = !d.active)}
 				>
 					{d.label}
@@ -46,13 +53,13 @@
 			{/each}
 		</div>
 		<!-- Natural degrees -->
-		<div class="flex justify-center gap-1">
+		<div class="flex justify-center gap-3">
 			{#each naturalDegrees as d}
 				<button
 					type="button"
-					class="flex h-24 w-24 cursor-pointer items-center justify-center rounded-full bg-ctp-mantle text-3xl text-ctp-surface2"
-					style="box-shadow: inset 0 0 5px 3px #00000055;"
-					class:bg-ctp-blue={d.active}
+					class={buttonClasses +
+						(d.active ? ' ' + buttonActiveClasses : ' ' + buttonInactiveClasses)}
+					style={d.active ? `box-shadow: ${buttonActiveShadow}` : `box-shadow: ${buttonShadow}`}
 					on:click={() => (d.active = !d.active)}
 				>
 					{d.label}
