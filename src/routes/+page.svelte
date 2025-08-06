@@ -1,4 +1,5 @@
 <script lang="ts">
+	import { data_ } from './../../node_modules/@sveltejs/kit/src/core/sync/write_root.js';
 	type NoteName = 'C' | 'C#' | 'D' | 'D#' | 'E' | 'F' | 'F#' | 'G' | 'G#' | 'A' | 'A#' | 'B';
 	const notes: NoteName[] = ['C', 'C#', 'D', 'D#', 'E', 'F', 'F#', 'G', 'G#', 'A', 'A#', 'B'];
 
@@ -52,22 +53,109 @@
 		label: string;
 		row: 'natural' | 'accidental';
 		active: boolean;
+		color: string;
+		description: string;
 		spacerBefore?: boolean;
 	};
 
 	let degrees: Degree[] = [
-		{ index: 0, label: '1', row: 'natural', active: false },
-		{ index: 1, label: 'b2', row: 'accidental', active: false },
-		{ index: 2, label: '2', row: 'natural', active: false },
-		{ index: 3, label: 'b3', row: 'accidental', active: false },
-		{ index: 4, label: '3', row: 'natural', active: false },
-		{ index: 5, label: '4', row: 'natural', active: false },
-		{ index: 6, label: 'b5', row: 'accidental', active: false, spacerBefore: true },
-		{ index: 7, label: '5', row: 'natural', active: false },
-		{ index: 8, label: 'b6', row: 'accidental', active: false },
-		{ index: 9, label: '6', row: 'natural', active: false },
-		{ index: 10, label: 'b7', row: 'accidental', active: false },
-		{ index: 11, label: '7', row: 'natural', active: false }
+		{
+			index: 0,
+			label: '1',
+			row: 'natural',
+			active: false,
+			color: 'bg-ctp-red',
+			description: 'Root note; establishes tonal center and stability.'
+		},
+		{
+			index: 1,
+			label: 'b2',
+			row: 'accidental',
+			active: false,
+			color: 'bg-ctp-peach',
+			description: 'Minor second; very dissonant, often used for tension or exotic scales.'
+		},
+		{
+			index: 2,
+			label: '2',
+			row: 'natural',
+			active: false,
+			color: 'bg-ctp-yellow',
+			description: 'Major second; adds brightness and melodic movement.'
+		},
+		{
+			index: 3,
+			label: 'b3',
+			row: 'accidental',
+			active: false,
+			color: 'bg-ctp-green',
+			description: 'Minor third; gives minor tonality, evokes sadness or introspection.'
+		},
+		{
+			index: 4,
+			label: '3',
+			row: 'natural',
+			active: false,
+			color: 'bg-ctp-teal',
+			description: 'Major third; defines major tonality, sounds happy and uplifting.'
+		},
+		{
+			index: 5,
+			label: '4',
+			row: 'natural',
+			active: false,
+			color: 'bg-ctp-blue',
+			description: 'Perfect fourth; neutral, can sound suspended or unresolved.'
+		},
+		{
+			index: 6,
+			label: 'b5',
+			row: 'accidental',
+			active: false,
+			color: 'bg-ctp-mauve',
+			spacerBefore: true,
+			description: 'Diminished fifth (tritone); very dissonant, used for tension and drama.'
+		},
+		{
+			index: 7,
+			label: '5',
+			row: 'natural',
+			active: false,
+			color: 'bg-ctp-pink',
+			description: 'Perfect fifth; stable and consonant, forms the basis of power chords.'
+		},
+		{
+			index: 8,
+			label: 'b6',
+			row: 'accidental',
+			active: false,
+			color: 'bg-ctp-lavender',
+			description: 'Minor sixth; adds melancholy, used in minor and exotic scales.'
+		},
+		{
+			index: 9,
+			label: '6',
+			row: 'natural',
+			active: false,
+			color: 'bg-ctp-sky',
+			description: 'Major sixth; warm and sweet, common in major and modal scales.'
+		},
+		{
+			index: 10,
+			label: 'b7',
+			row: 'accidental',
+			active: false,
+			color: 'bg-ctp-sapphire',
+			description: 'Minor seventh; bluesy, jazzy, adds tension and color.'
+		},
+		{
+			index: 11,
+			label: '7',
+			row: 'natural',
+			active: false,
+			color: 'bg-ctp-flamingo',
+			description: 'Major seventh; dreamy, adds sophistication and tension.'
+		}
 	];
 
 	$: naturalDegrees = degrees.filter((d) => d.row === 'natural');
@@ -87,28 +175,18 @@
 		return activeIntervals[degreeIndex];
 	}
 
+	// Function to get color for a degree index
+	function getDegreeColor(degreeIndex: number): string {
+		const degree = degrees.find((d) => d.index === degreeIndex);
+		return degree ? degree.color : 'bg-ctp-mantle';
+	}
+
 	// Reactive statement - for each string, determine which degree each note is in
 	$: stringNotesDegrees = instrumentStrings.map((string) =>
 		generateStringNotes(string.root).map((note) =>
 			getNoteScaleDegree(note, scaleRoot, activeScaleDegrees)
 		)
 	);
-
-	// Color mapping for scale degrees
-	const degreeColors = [
-		'bg-ctp-red text-ctp-crust', // 1st degree
-		'bg-ctp-peach text-ctp-crust', // 2nd degree
-		'bg-ctp-yellow text-ctp-crust', // 3rd degree
-		'bg-ctp-green text-ctp-crust', // 4th degree
-		'bg-ctp-teal text-ctp-crust', // 5th degree
-		'bg-ctp-blue text-ctp-crust', // 6th degree
-		'bg-ctp-mauve text-ctp-crust', // 7th degree
-		'bg-ctp-pink text-ctp-crust', // 8th degree
-		'bg-ctp-lavender text-ctp-crust', // 9th degree
-		'bg-ctp-sky text-ctp-crust', // 10th degree
-		'bg-ctp-sapphire text-ctp-crust', // 11th degree
-		'bg-ctp-flamingo text-ctp-crust' // 12th degree
-	];
 
 	// Current degree active states (for toggling)
 	let activeDegrees: boolean[] = Array(degrees.length).fill(false);
@@ -151,6 +229,23 @@
 </script>
 
 <main>
+	<!-- Tailwind safelist hack to preserve dynamic bg-ctp-* classes -->
+	<div class="hidden">
+		<div class="bg-ctp-red"></div>
+		<div class="bg-ctp-peach"></div>
+		<div class="bg-ctp-yellow"></div>
+		<div class="bg-ctp-green"></div>
+		<div class="bg-ctp-teal"></div>
+		<div class="bg-ctp-blue"></div>
+		<div class="bg-ctp-mauve"></div>
+		<div class="bg-ctp-pink"></div>
+		<div class="bg-ctp-lavender"></div>
+		<div class="bg-ctp-sky"></div>
+		<div class="bg-ctp-sapphire"></div>
+		<div class="bg-ctp-flamingo"></div>
+		<div class="bg-ctp-mantle"></div>
+	</div>
+
 	<div class="my-2">
 		<!-- String amount controls -->
 		<div class="justify-left mb-4 flex items-center gap-4 px-8">
@@ -232,11 +327,9 @@
 									<!-- Note indicator -->
 									{#if note}
 										<div
-											class="relative z-10 flex h-10 w-10 items-center justify-center rounded-full border border-ctp-surface0 text-xs font-bold
+											class="relative z-10 flex h-10 w-10 items-center justify-center rounded-full border border-ctp-surface0 text-xs font-bold text-ctp-crust
 
-											{scaleDegree >= 0
-												? degreeColors[scaleDegree % degreeColors.length]
-												: 'bg-ctp-mantle text-ctp-surface2'}"
+											{scaleDegree >= 0 ? getDegreeColor(scaleDegree) : 'bg-ctp-mantle text-ctp-surface2'}"
 										>
 											{note.name}
 										</div>
@@ -258,9 +351,9 @@
 					{/if}
 					<button
 						type="button"
-						class="flex h-16 w-16 cursor-pointer items-center justify-center rounded-full border border-ctp-surface2 bg-ctp-mantle text-2xl {d.active
-							? degreeColors[d.index]
-							: 'text-ctp-surface2'}"
+						class="flex h-16 w-16 cursor-pointer items-center justify-center rounded-full border border-ctp-surface2 text-2xl text-ctp-crust {d.active
+							? d.color
+							: 'bg-ctp-mantle  text-ctp-surface2'}"
 						on:click={() => {
 							d.active = !d.active;
 							console.log(d.index);
@@ -275,12 +368,12 @@
 				{#each naturalDegrees as d}
 					<button
 						type="button"
-						class="flex h-16 w-16 cursor-pointer items-center justify-center rounded-full border border-ctp-surface2 bg-ctp-mantle text-2xl {d.active
-							? degreeColors[d.index]
-							: 'text-ctp-surface2'}"
+						class="flex h-16 w-16 cursor-pointer items-center justify-center rounded-full border border-ctp-surface2 text-2xl text-ctp-crust {d.active
+							? d.color
+							: 'bg-ctp-mantle text-ctp-surface2'}"
 						on:click={() => {
 							d.active = !d.active;
-							console.log(d.index);
+							console.log(d.color);
 						}}
 					>
 						{d.label}
