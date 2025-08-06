@@ -119,7 +119,7 @@
 		degrees[index].active = activeDegrees[index];
 	}
 
-	let numFrets = 24;
+	let numFrets = 18;
 
 	function addString() {
 		const newIndex = instrumentStrings.length;
@@ -201,14 +201,14 @@
 					<div class="w-16"></div>
 					<!-- Fret numbers -->
 					{#each Array(numFrets + 1) as _, fret}
-						<div class="flex min-w-12 flex-1 items-center justify-center text-sm text-ctp-subtext0">
+						<div class="flex min-w-12 flex-1 items-center justify-center text-lg text-ctp-subtext0">
 							{fret}
 						</div>
 					{/each}
 				</div>
 
 				<!-- Fretboard grid -->
-				<div class="rounded border border-ctp-surface0 bg-ctp-base p-2">
+				<div class="mx-1 rounded border border-ctp-surface0 bg-ctp-base">
 					{#each instrumentStrings as string, stringIndex}
 						<div class="flex items-center border-b border-ctp-surface0 last:border-b-0">
 							<!-- String tuning -->
