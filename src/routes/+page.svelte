@@ -139,71 +139,101 @@
 </script>
 
 <main>
-	<!-- Fretboard -->
-	<div class="my-8 overflow-x-auto">
-		<div class="min-w-max">
-			<!-- Fret numbers header -->
-			<div class="mb-2 flex">
-				<!-- Empty space for string tuning column -->
-				<div class="w-18"></div>
-				<!-- Fret numbers -->
-				{#each Array(numFrets + 1) as _, fret}
-					<div class="flex w-12 items-center justify-center text-sm text-ctp-subtext0">
-						{fret}
-					</div>
-				{/each}
-			</div>
-
-			<!-- Fretboard grid -->
-			<div class="rounded border border-ctp-surface0 bg-ctp-base p-2">
-				{#each instrumentStrings as string, stringIndex}
-					<div class="flex items-center border-b border-ctp-surface0 last:border-b-0">
-						<!-- String tuning -->
-						<div class="w-16 text-center text-sm font-bold text-ctp-text">
-							{string.root.name}{string.root.octave}
-						</div>
-
-						<!-- Fret positions -->
-						{#each Array(numFrets + 1) as _, fret}
-							{@const note = allStringNotes[stringIndex][fret]}
-							{@const isInScale = stringNotesInScale[stringIndex][fret]}
-							<div class="relative flex h-12 w-12 items-center justify-center">
-								<!-- Fret marker (visual fret line) -->
-								{#if fret > 0}
-									<div class="absolute top-0 left-0 h-full w-px bg-ctp-surface1"></div>
-								{/if}
-
-								<!-- String line -->
-								<div class="absolute h-px w-full bg-ctp-surface2"></div>
-
-								<!-- Note indicator -->
-								{#if note}
-									<div
-										class="relative z-10 flex h-8 w-8 items-center justify-center rounded-full text-xs font-bold
-											{isInScale ? 'bg-ctp-blue text-ctp-crust' : 'bg-ctp-surface0 text-ctp-subtext1'}"
-									>
-										{note.name}
-									</div>
-								{/if}
-							</div>
-						{/each}
-					</div>
-				{/each}
-			</div>
-		</div>
-	</div>
-
 	<div class="my-8">
-		<!-- Debug button -->
-		<div class="mb-4 flex justify-center">
+		<!-- String amount controls -->
+		<div class="justify-left mb-4 flex items-center gap-4 px-8">
+			<span class="text-2xl text-ctp-text">String Amount: {instrumentStrings.length}</span>
 			<button
 				type="button"
-				class="rounded bg-blue-500 px-4 py-2 text-white hover:bg-blue-600"
+				class="flex h-8 w-8 items-center justify-center rounded bg-ctp-red text-white hover:bg-ctp-red/80 disabled:opacity-50"
+				disabled={instrumentStrings.length <= 1}
+				on:click={() => removeString(instrumentStrings.length - 1)}
+			>
+				-
+			</button>
+			<button
+				type="button"
+				class="flex h-8 w-8 items-center justify-center rounded bg-ctp-peach text-white hover:bg-ctp-green/80"
 				on:click={addString}
 			>
-				Add String (Debug)
+				+
+			</button>
+
+			<!-- Spacer -->
+			<div class="flex-1"></div>
+
+			<!-- Fret amount controls -->
+			<span class="text-2xl text-ctp-text">Fret Amount: {numFrets}</span>
+			<button
+				type="button"
+				class="flex h-8 w-8 items-center justify-center rounded bg-ctp-red text-white hover:bg-ctp-red/80 disabled:opacity-50"
+				disabled={numFrets <= 1}
+				on:click={() => (numFrets = Math.max(1, numFrets - 1))}
+			>
+				-
+			</button>
+			<button
+				type="button"
+				class="flex h-8 w-8 items-center justify-center rounded bg-ctp-peach text-white hover:bg-ctp-green/80"
+				on:click={() => (numFrets = Math.min(30, numFrets + 1))}
+			>
+				+
 			</button>
 		</div>
+		<!-- Fretboard -->
+		<div class="my-8 overflow-x-auto">
+			<div class="min-w-max">
+				<!-- Fret numbers header -->
+				<div class="mb-2 flex">
+					<!-- Empty space for string tuning column -->
+					<div class="w-18"></div>
+					<!-- Fret numbers -->
+					{#each Array(numFrets + 1) as _, fret}
+						<div class="flex w-12 items-center justify-center text-sm text-ctp-subtext0">
+							{fret}
+						</div>
+					{/each}
+				</div>
+
+				<!-- Fretboard grid -->
+				<div class="rounded border border-ctp-surface0 bg-ctp-base p-2">
+					{#each instrumentStrings as string, stringIndex}
+						<div class="flex items-center border-b border-ctp-surface0 last:border-b-0">
+							<!-- String tuning -->
+							<div class="w-16 text-center text-sm font-bold text-ctp-text">
+								{string.root.name}{string.root.octave}
+							</div>
+
+							<!-- Fret positions -->
+							{#each Array(numFrets + 1) as _, fret}
+								{@const note = allStringNotes[stringIndex][fret]}
+								{@const isInScale = stringNotesInScale[stringIndex][fret]}
+								<div class="relative flex h-12 w-12 items-center justify-center">
+									<!-- Fret marker (visual fret line) -->
+									{#if fret > 0}
+										<div class="absolute top-0 left-0 h-full w-px bg-ctp-surface1"></div>
+									{/if}
+
+									<!-- String line -->
+									<div class="absolute h-px w-full bg-ctp-surface2"></div>
+
+									<!-- Note indicator -->
+									{#if note}
+										<div
+											class="relative z-10 flex h-8 w-8 items-center justify-center rounded-full text-xs font-bold
+											{isInScale ? 'bg-ctp-blue text-ctp-crust' : 'bg-ctp-surface0 text-ctp-subtext1'}"
+										>
+											{note.name}
+										</div>
+									{/if}
+								</div>
+							{/each}
+						</div>
+					{/each}
+				</div>
+			</div>
+		</div>
+
 		<div class="my-8">
 			<!-- Accidental degrees -->
 			<div class="flex justify-center gap-3">
