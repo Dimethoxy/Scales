@@ -26,35 +26,38 @@
 	$: accidentalDegrees = degrees.filter((d) => d.row === 'accidental');
 </script>
 
-<main class="space-y-2 px-24">
-	<!-- Accidental degrees -->
-	<div class="flex justify-center gap-1">
-		{#each accidentalDegrees as d}
-			{#if d.spacerBefore}
-				<div class="h-8 w-8"></div>
-			{/if}
-			<button
-				type="button"
-				class="bg-ctp-surface flex h-8 w-8 cursor-pointer items-center justify-center rounded-full border"
-				class:bg-ctp-blue={d.active}
-				on:click={() => (d.active = !d.active)}
-			>
-				{d.label}
-			</button>
-		{/each}
-	</div>
-
-	<!-- Natural degrees -->
-	<div class="flex justify-center gap-1">
-		{#each naturalDegrees as d}
-			<button
-				type="button"
-				class="flex h-8 w-8 cursor-pointer items-center justify-center rounded-full border"
-				class:bg-ctp-blue={d.active}
-				on:click={() => (d.active = !d.active)}
-			>
-				{d.label}
-			</button>
-		{/each}
+<main>
+	<div class="my-8">
+		<!-- Accidental degrees -->
+		<div class="flex justify-center gap-1">
+			{#each accidentalDegrees as d}
+				{#if d.spacerBefore}
+					<div class="h-24 w-24"></div>
+				{/if}
+				<button
+					type="button"
+					class="flex h-24 w-24 cursor-pointer items-center justify-center rounded-full bg-ctp-mantle text-3xl text-ctp-surface2"
+					style="box-shadow: inset 0 0 5px 3px #00000055;"
+					class:bg-ctp-blue={d.active}
+					on:click={() => (d.active = !d.active)}
+				>
+					{d.label}
+				</button>
+			{/each}
+		</div>
+		<!-- Natural degrees -->
+		<div class="flex justify-center gap-1">
+			{#each naturalDegrees as d}
+				<button
+					type="button"
+					class="flex h-24 w-24 cursor-pointer items-center justify-center rounded-full bg-ctp-mantle text-3xl text-ctp-surface2"
+					style="box-shadow: inset 0 0 5px 3px #00000055;"
+					class:bg-ctp-blue={d.active}
+					on:click={() => (d.active = !d.active)}
+				>
+					{d.label}
+				</button>
+			{/each}
+		</div>
 	</div>
 </main>
