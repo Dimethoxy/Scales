@@ -91,6 +91,8 @@
 		)
 	);
 
+	let numFrets = 24;
+
 	function addString() {
 		const newIndex = instrumentStrings.length;
 		let newRoot: Note;
@@ -137,6 +139,60 @@
 </script>
 
 <main>
+	<!-- Fretboard -->
+	<div class="my-8 overflow-x-auto">
+		<div class="min-w-max">
+			<!-- Fret numbers header -->
+			<div class="mb-2 flex">
+				<!-- Empty space for string tuning column -->
+				<div class="w-18"></div>
+				<!-- Fret numbers -->
+				{#each Array(numFrets + 1) as _, fret}
+					<div class="flex w-12 items-center justify-center text-sm text-ctp-subtext0">
+						{fret}
+					</div>
+				{/each}
+			</div>
+
+			<!-- Fretboard grid -->
+			<div class="rounded border border-ctp-surface0 bg-ctp-base p-2">
+				{#each instrumentStrings as string, stringIndex}
+					<div class="flex items-center border-b border-ctp-surface0 last:border-b-0">
+						<!-- String tuning -->
+						<div class="w-16 text-center text-sm font-bold text-ctp-text">
+							{string.root.name}{string.root.octave}
+						</div>
+
+						<!-- Fret positions -->
+						{#each Array(numFrets + 1) as _, fret}
+							{@const note = allStringNotes[stringIndex][fret]}
+							{@const isInScale = stringNotesInScale[stringIndex][fret]}
+							<div class="relative flex h-12 w-12 items-center justify-center">
+								<!-- Fret marker (visual fret line) -->
+								{#if fret > 0}
+									<div class="absolute top-0 left-0 h-full w-px bg-ctp-surface1"></div>
+								{/if}
+
+								<!-- String line -->
+								<div class="absolute h-px w-full bg-ctp-surface2"></div>
+
+								<!-- Note indicator -->
+								{#if note}
+									<div
+										class="relative z-10 flex h-8 w-8 items-center justify-center rounded-full text-xs font-bold
+											{isInScale ? 'bg-ctp-blue text-ctp-crust' : 'bg-ctp-surface0 text-ctp-subtext1'}"
+									>
+										{note.name}
+									</div>
+								{/if}
+							</div>
+						{/each}
+					</div>
+				{/each}
+			</div>
+		</div>
+	</div>
+
 	<div class="my-8">
 		<!-- Debug button -->
 		<div class="mb-4 flex justify-center">
