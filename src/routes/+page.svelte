@@ -31,7 +31,7 @@
 	<div class="flex justify-center gap-1">
 		{#each accidentalDegrees as d}
 			{#if d.spacerBefore}
-				<div class="h-8 w-8" />
+				<div class="h-8 w-8"></div>
 			{/if}
 			<button
 				type="button"
@@ -47,13 +47,14 @@
 	<!-- Natural degrees -->
 	<div class="flex justify-center gap-1">
 		{#each naturalDegrees as d}
-			<div
+			<button
+				type="button"
 				class="flex h-8 w-8 cursor-pointer items-center justify-center rounded-full border"
 				class:bg-ctp-blue={d.active}
 				on:click={() => (d.active = !d.active)}
 			>
 				{d.label}
-			</div>
+			</button>
 		{/each}
 	</div>
 </main>
