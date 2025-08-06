@@ -1,5 +1,4 @@
 <script lang="ts">
-	import { data_ } from './../../node_modules/@sveltejs/kit/src/core/sync/write_root.js';
 	type NoteName = 'C' | 'C#' | 'D' | 'D#' | 'E' | 'F' | 'F#' | 'G' | 'G#' | 'A' | 'A#' | 'B';
 	const notes: NoteName[] = ['C', 'C#', 'D', 'D#', 'E', 'F', 'F#', 'G', 'G#', 'A', 'A#', 'B'];
 
@@ -65,7 +64,7 @@
 			row: 'natural',
 			active: false,
 			color: 'bg-ctp-red',
-			description: 'Root note; establishes tonal center and stability.'
+			description: 'Root note: Establishes tonal center and stability.'
 		},
 		{
 			index: 1,
@@ -73,7 +72,7 @@
 			row: 'accidental',
 			active: false,
 			color: 'bg-ctp-peach',
-			description: 'Minor second; very dissonant, often used for tension or exotic scales.'
+			description: 'Minor second: Very dissonant, often used for tension or exotic scales.'
 		},
 		{
 			index: 2,
@@ -81,7 +80,7 @@
 			row: 'natural',
 			active: false,
 			color: 'bg-ctp-yellow',
-			description: 'Major second; adds brightness and melodic movement.'
+			description: 'Major second: Adds brightness and melodic movement.'
 		},
 		{
 			index: 3,
@@ -89,7 +88,7 @@
 			row: 'accidental',
 			active: false,
 			color: 'bg-ctp-green',
-			description: 'Minor third; gives minor tonality, evokes sadness or introspection.'
+			description: 'Minor third: Gives minor tonality, evokes sadness or introspection.'
 		},
 		{
 			index: 4,
@@ -97,7 +96,7 @@
 			row: 'natural',
 			active: false,
 			color: 'bg-ctp-teal',
-			description: 'Major third; defines major tonality, sounds happy and uplifting.'
+			description: 'Major third: Defines major tonality, sounds happy and uplifting.'
 		},
 		{
 			index: 5,
@@ -105,7 +104,7 @@
 			row: 'natural',
 			active: false,
 			color: 'bg-ctp-blue',
-			description: 'Perfect fourth; neutral, can sound suspended or unresolved.'
+			description: 'Perfect fourth: Neutral, can sound suspended or unresolved.'
 		},
 		{
 			index: 6,
@@ -114,7 +113,8 @@
 			active: false,
 			color: 'bg-ctp-mauve',
 			spacerBefore: true,
-			description: 'Diminished fifth (tritone); very dissonant, used for tension and drama.'
+			description:
+				'Diminished fifth: Also called Tritone, very dissonant, used for tension and drama.'
 		},
 		{
 			index: 7,
@@ -122,7 +122,7 @@
 			row: 'natural',
 			active: false,
 			color: 'bg-ctp-pink',
-			description: 'Perfect fifth; stable and consonant, forms the basis of power chords.'
+			description: 'Perfect fifth: Stable and consonant, forms the basis of power chords.'
 		},
 		{
 			index: 8,
@@ -130,7 +130,7 @@
 			row: 'accidental',
 			active: false,
 			color: 'bg-ctp-lavender',
-			description: 'Minor sixth; adds melancholy, used in minor and exotic scales.'
+			description: 'Minor sixth: Adds melancholy, used in minor and exotic scales.'
 		},
 		{
 			index: 9,
@@ -138,7 +138,7 @@
 			row: 'natural',
 			active: false,
 			color: 'bg-ctp-sky',
-			description: 'Major sixth; warm and sweet, common in major and modal scales.'
+			description: 'Major sixth: Warm and sweet, common in major and modal scales.'
 		},
 		{
 			index: 10,
@@ -146,7 +146,7 @@
 			row: 'accidental',
 			active: false,
 			color: 'bg-ctp-sapphire',
-			description: 'Minor seventh; bluesy, jazzy, adds tension and color.'
+			description: 'Minor seventh: Bluesy, jazzy, adds tension and color.'
 		},
 		{
 			index: 11,
@@ -225,6 +225,29 @@
 		instrumentStrings = instrumentStrings.filter((s) => s.index !== index);
 		// Reindex remaining strings
 		instrumentStrings = instrumentStrings.map((s, i) => ({ ...s, index: i }));
+	}
+
+	// Tooltip state
+	let showTooltip = false;
+	let tooltipContent = '';
+	let tooltipX = 0;
+	let tooltipY = 0;
+	let hoverTimeout: ReturnType<typeof setTimeout>;
+
+	function handleDegreeMouseEnter(event: MouseEvent, degree: Degree) {
+		clearTimeout(hoverTimeout);
+		hoverTimeout = setTimeout(() => {
+			const rect = (event.target as HTMLElement).getBoundingClientRect();
+			tooltipX = rect.left + rect.width / 2;
+			tooltipY = rect.top - 10;
+			tooltipContent = degree.description;
+			showTooltip = true;
+		}, 500); // Show tooltip after 500ms hover
+	}
+
+	function handleDegreeMouseLeave() {
+		clearTimeout(hoverTimeout);
+		showTooltip = false;
 	}
 </script>
 
@@ -358,6 +381,8 @@
 							d.active = !d.active;
 							console.log(d.index);
 						}}
+						on:mouseenter={(e) => handleDegreeMouseEnter(e, d)}
+						on:mouseleave={handleDegreeMouseLeave}
 					>
 						{d.label}
 					</button>
@@ -375,6 +400,8 @@
 							d.active = !d.active;
 							console.log(d.color);
 						}}
+						on:mouseenter={(e) => handleDegreeMouseEnter(e, d)}
+						on:mouseleave={handleDegreeMouseLeave}
 					>
 						{d.label}
 					</button>
@@ -382,4 +409,14 @@
 			</div>
 		</div>
 	</div>
+
+	<!-- Tooltip -->
+	{#if showTooltip}
+		<div
+			class="pointer-events-none fixed z-50 max-w-xs rounded border border-ctp-surface2 bg-ctp-mantle px-3 py-2 text-sm text-ctp-text shadow-lg"
+			style="left: {tooltipX}px; top: {tooltipY}px; transform: translateX(-50%) translateY(-100%);"
+		>
+			{tooltipContent}
+		</div>
+	{/if}
 </main>
