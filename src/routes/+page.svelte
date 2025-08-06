@@ -33,32 +33,19 @@
 
 	// Dynamic list of instrument strings
 	let instrumentStrings: InstrumentString[] = [
-		{ index: 0, root: { name: 'E', octave: 2 } },
-		{ index: 1, root: { name: 'A', octave: 2 } },
-		{ index: 2, root: { name: 'D', octave: 3 } }
+		{ index: 0, root: { name: 'E', octave: 4 } },
+		{ index: 1, root: { name: 'B', octave: 3 } },
+		{ index: 2, root: { name: 'G', octave: 3 } },
+		{ index: 3, root: { name: 'D', octave: 3 } },
+		{ index: 4, root: { name: 'A', octave: 2 } },
+		{ index: 5, root: { name: 'E', octave: 2 } }
 	];
 
 	// Reactive statement - all string notes recalculate when any root changes
 	$: allStringNotes = instrumentStrings.map((string) => generateStringNotes(string.root));
 
-	function addString() {
-		const newIndex = instrumentStrings.length;
-		instrumentStrings = [
-			...instrumentStrings,
-			{
-				index: newIndex,
-				root: { name: 'E', octave: 2 }
-			}
-		];
-		console.log('Added string, current strings:', instrumentStrings);
-		console.log('All string notes:', allStringNotes);
-	}
-
-	function removeString(index: number) {
-		instrumentStrings = instrumentStrings.filter((s) => s.index !== index);
-		// Reindex remaining strings
-		instrumentStrings = instrumentStrings.map((s, i) => ({ ...s, index: i }));
-	}
+	// Current root note for the scale
+	let scaleRoot: Note = { name: 'C', octave: 4 };
 
 	type Degree = {
 		index: number;
@@ -85,6 +72,61 @@
 
 	$: naturalDegrees = degrees.filter((d) => d.row === 'natural');
 	$: accidentalDegrees = degrees.filter((d) => d.row === 'accidental');
+
+	// Reactive statement - get active scale degrees (semitone intervals from root)
+	$: activeScaleDegrees = degrees.filter((d) => d.active).map((d) => d.index);
+
+	// Function to check if a note is in the current scale
+	function isNoteInScale(note: Note, scaleRoot: Note, activeIntervals: number[]): boolean {
+		const noteIndex = notes.indexOf(note.name);
+		const rootIndex = notes.indexOf(scaleRoot.name);
+		const intervalFromRoot = (((noteIndex - rootIndex) % 12) + 12) % 12;
+		return activeIntervals.includes(intervalFromRoot);
+	}
+
+	// Reactive statement - for each string, determine which notes are in scale
+	$: stringNotesInScale = instrumentStrings.map((string) =>
+		generateStringNotes(string.root).map((note) =>
+			isNoteInScale(note, scaleRoot, activeScaleDegrees)
+		)
+	);
+
+	function addString() {
+		const newIndex = instrumentStrings.length;
+		let newRoot: Note;
+
+		if (instrumentStrings.length === 0) {
+			// Default root if no strings exist
+			newRoot = { name: 'E', octave: 2 };
+		} else {
+			// Get the last string's root and transpose it down 5 semitones
+			const lastString = instrumentStrings[instrumentStrings.length - 1];
+			newRoot = transpose(lastString.root, -5);
+		}
+
+		instrumentStrings = [
+			...instrumentStrings,
+			{
+				index: newIndex,
+				root: newRoot
+			}
+		];
+
+		// Log after reactive statements have updated
+		setTimeout(() => {
+			console.log('Added string, current strings:', instrumentStrings);
+			console.log('All string notes:', allStringNotes);
+			console.log('Scale root:', scaleRoot);
+			console.log('Active scale degrees:', activeScaleDegrees);
+			console.log('Notes in scale for each string:', stringNotesInScale);
+		}, 0);
+	}
+
+	function removeString(index: number) {
+		instrumentStrings = instrumentStrings.filter((s) => s.index !== index);
+		// Reindex remaining strings
+		instrumentStrings = instrumentStrings.map((s, i) => ({ ...s, index: i }));
+	}
 
 	const buttonClasses =
 		'flex h-22 w-22 cursor-pointer items-center justify-center rounded-full bg-ctp-mantle text-4xl';
