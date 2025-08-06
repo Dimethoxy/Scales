@@ -63,7 +63,7 @@
 			label: '1',
 			row: 'natural',
 			active: false,
-			color: 'bg-ctp-red',
+			color: 'bg-ctp-text',
 			description: 'Root note: Establishes tonal center and stability.'
 		},
 		{
@@ -71,7 +71,7 @@
 			label: 'b2',
 			row: 'accidental',
 			active: false,
-			color: 'bg-ctp-peach',
+			color: 'bg-ctp-teal',
 			description: 'Minor second: Very dissonant, often used for tension or exotic scales.'
 		},
 		{
@@ -79,7 +79,7 @@
 			label: '2',
 			row: 'natural',
 			active: false,
-			color: 'bg-ctp-yellow',
+			color: 'bg-ctp-green',
 			description: 'Major second: Adds brightness and melodic movement.'
 		},
 		{
@@ -87,7 +87,7 @@
 			label: 'b3',
 			row: 'accidental',
 			active: false,
-			color: 'bg-ctp-green',
+			color: 'bg-ctp-yellow',
 			description: 'Minor third: Gives minor tonality, evokes sadness or introspection.'
 		},
 		{
@@ -95,7 +95,7 @@
 			label: '3',
 			row: 'natural',
 			active: false,
-			color: 'bg-ctp-teal',
+			color: 'bg-ctp-peach',
 			description: 'Major third: Defines major tonality, sounds happy and uplifting.'
 		},
 		{
@@ -103,7 +103,7 @@
 			label: '4',
 			row: 'natural',
 			active: false,
-			color: 'bg-ctp-blue',
+			color: 'bg-ctp-red',
 			description: 'Perfect fourth: Neutral, can sound suspended or unresolved.'
 		},
 		{
@@ -111,7 +111,7 @@
 			label: 'b5',
 			row: 'accidental',
 			active: false,
-			color: 'bg-ctp-mauve',
+			color: 'bg-ctp-pink',
 			spacerBefore: true,
 			description:
 				'Diminished fifth: Also called Tritone, very dissonant, used for tension and drama.'
@@ -121,7 +121,7 @@
 			label: '5',
 			row: 'natural',
 			active: false,
-			color: 'bg-ctp-pink',
+			color: 'bg-ctp-mauve',
 			description: 'Perfect fifth: Stable and consonant, forms the basis of power chords.'
 		},
 		{
@@ -137,7 +137,7 @@
 			label: '6',
 			row: 'natural',
 			active: false,
-			color: 'bg-ctp-sky',
+			color: 'bg-ctp-blue',
 			description: 'Major sixth: Warm and sweet, common in major and modal scales.'
 		},
 		{
@@ -145,15 +145,15 @@
 			label: 'b7',
 			row: 'accidental',
 			active: false,
-			color: 'bg-ctp-sapphire',
-			description: 'Minor seventh: Bluesy, jazzy, adds tension and color.'
+			color: 'bg-ctp-sky',
+			description: 'Minor seventh: luesy, jazzy, adds tension and color.'
 		},
 		{
 			index: 11,
 			label: '7',
 			row: 'natural',
 			active: false,
-			color: 'bg-ctp-flamingo',
+			color: 'bg-ctp-sapphire',
 			description: 'Major seventh; dreamy, adds sophistication and tension.'
 		}
 	];
