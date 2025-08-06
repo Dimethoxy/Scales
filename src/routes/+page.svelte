@@ -139,15 +139,6 @@
 				root: newRoot
 			}
 		];
-
-		// Log after reactive statements have updated
-		setTimeout(() => {
-			console.log('Added string, current strings:', instrumentStrings);
-			console.log('All string notes:', allStringNotes);
-			console.log('Scale root:', scaleRoot);
-			console.log('Active scale degrees:', activeScaleDegrees);
-			console.log('Notes in scale for each string:', stringNotesInScale);
-		}, 0);
 	}
 
 	function removeString(index: number) {
@@ -157,7 +148,7 @@
 	}
 
 	const buttonClasses =
-		'flex h-22 w-22 cursor-pointer items-center justify-center rounded-full bg-ctp-mantle text-4xl';
+		'flex h-16 w-16 cursor-pointer items-center justify-center rounded-full bg-ctp-mantle text-2xl';
 	const buttonActiveClasses = 'bg-ctp-text text-ctp-crust';
 	const buttonInactiveClasses = 'text-ctp-surface2';
 	const buttonShadow = 'inset 0 0 5px 3px #00000055;';
@@ -165,7 +156,7 @@
 </script>
 
 <main>
-	<div class="my-8">
+	<div class="my-2">
 		<!-- String amount controls -->
 		<div class="justify-left mb-4 flex items-center gap-4 px-8">
 			<span class="text-2xl text-ctp-text">String Amount: {instrumentStrings.length}</span>
@@ -207,15 +198,15 @@
 			</button>
 		</div>
 		<!-- Fretboard -->
-		<div class="my-8 overflow-x-auto">
+		<div class="my-2 overflow-x-auto">
 			<div class="min-w-max">
 				<!-- Fret numbers header -->
-				<div class="mb-2 flex">
+				<div class="flex px-2">
 					<!-- Empty space for string tuning column -->
-					<div class="w-18"></div>
+					<div class="w-16"></div>
 					<!-- Fret numbers -->
 					{#each Array(numFrets + 1) as _, fret}
-						<div class="flex w-12 items-center justify-center text-sm text-ctp-subtext0">
+						<div class="flex min-w-12 flex-1 items-center justify-center text-sm text-ctp-subtext0">
 							{fret}
 						</div>
 					{/each}
@@ -234,10 +225,10 @@
 							{#each Array(numFrets + 1) as _, fret}
 								{@const note = allStringNotes[stringIndex][fret]}
 								{@const scaleDegree = stringNotesDegrees[stringIndex][fret]}
-								<div class="relative flex h-12 w-12 items-center justify-center">
+								<div class="relative flex h-12 min-w-12 flex-1 items-center justify-center">
 									<!-- Fret marker (visual fret line) -->
 									{#if fret > 0}
-										<div class="absolute top-0 left-0 h-full w-px bg-ctp-surface1"></div>
+										<div class="absolute top-0 left-0 h-full w-px bg-ctp-surface2"></div>
 									{/if}
 
 									<!-- String line -->
@@ -246,10 +237,11 @@
 									<!-- Note indicator -->
 									{#if note}
 										<div
-											class="relative z-10 flex h-8 w-8 items-center justify-center rounded-full text-xs font-bold
+											class="relative z-10 flex h-10 w-10 items-center justify-center rounded-full border border-ctp-surface0 text-xs font-bold
+
 											{scaleDegree >= 0
 												? degreeColors[scaleDegree % degreeColors.length]
-												: 'bg-ctp-surface0 text-ctp-subtext1'}"
+												: 'bg-ctp-mantle text-ctp-surface2'}"
 										>
 											{note.name}
 										</div>
@@ -262,12 +254,12 @@
 			</div>
 		</div>
 
-		<div class="my-8">
+		<div class="my-4">
 			<!-- Accidental degrees -->
-			<div class="flex justify-center gap-3">
+			<div class="flex justify-center gap-2">
 				{#each accidentalDegrees as d}
 					{#if d.spacerBefore}
-						<div class="h-22 w-22"></div>
+						<div class="h-16 w-16"></div>
 					{/if}
 					<button
 						type="button"
@@ -284,7 +276,7 @@
 				{/each}
 			</div>
 			<!-- Natural degrees -->
-			<div class="flex justify-center gap-3">
+			<div class="flex justify-center gap-2">
 				{#each naturalDegrees as d}
 					<button
 						type="button"
