@@ -1,4 +1,65 @@
 <script lang="ts">
+	type NoteName = 'C' | 'C#' | 'D' | 'D#' | 'E' | 'F' | 'F#' | 'G' | 'G#' | 'A' | 'A#' | 'B';
+	const notes: NoteName[] = ['C', 'C#', 'D', 'D#', 'E', 'F', 'F#', 'G', 'G#', 'A', 'A#', 'B'];
+
+	type Note = {
+		name: NoteName;
+		octave: number;
+	};
+
+	function transpose(note: Note, semitones: number): Note {
+		const currentIndex = notes.indexOf(note.name);
+		const newIndex = (((currentIndex + semitones) % 12) + 12) % 12;
+		const octaveChange = Math.floor((currentIndex + semitones) / 12);
+
+		return {
+			name: notes[newIndex],
+			octave: note.octave + octaveChange
+		};
+	}
+
+	type InstrumentString = {
+		index: number;
+		root: Note;
+	};
+
+	function generateStringNotes(root: Note): Note[] {
+		const stringNotes: Note[] = [];
+		for (let i = 0; i < 32; i++) {
+			stringNotes.push(transpose(root, i));
+		}
+		return stringNotes;
+	}
+
+	// Dynamic list of instrument strings
+	let instrumentStrings: InstrumentString[] = [
+		{ index: 0, root: { name: 'E', octave: 2 } },
+		{ index: 1, root: { name: 'A', octave: 2 } },
+		{ index: 2, root: { name: 'D', octave: 3 } }
+	];
+
+	// Reactive statement - all string notes recalculate when any root changes
+	$: allStringNotes = instrumentStrings.map((string) => generateStringNotes(string.root));
+
+	function addString() {
+		const newIndex = instrumentStrings.length;
+		instrumentStrings = [
+			...instrumentStrings,
+			{
+				index: newIndex,
+				root: { name: 'E', octave: 2 }
+			}
+		];
+		console.log('Added string, current strings:', instrumentStrings);
+		console.log('All string notes:', allStringNotes);
+	}
+
+	function removeString(index: number) {
+		instrumentStrings = instrumentStrings.filter((s) => s.index !== index);
+		// Reindex remaining strings
+		instrumentStrings = instrumentStrings.map((s, i) => ({ ...s, index: i }));
+	}
+
 	type Degree = {
 		index: number;
 		label: string;
@@ -35,36 +96,54 @@
 
 <main>
 	<div class="my-8">
-		<!-- Accidental degrees -->
-		<div class="flex justify-center gap-3">
-			{#each accidentalDegrees as d}
-				{#if d.spacerBefore}
-					<div class="h-22 w-22"></div>
-				{/if}
-				<button
-					type="button"
-					class={buttonClasses +
-						(d.active ? ' ' + buttonActiveClasses : ' ' + buttonInactiveClasses)}
-					style={d.active ? `box-shadow: ${buttonActiveShadow}` : `box-shadow: ${buttonShadow}`}
-					on:click={() => (d.active = !d.active)}
-				>
-					{d.label}
-				</button>
-			{/each}
+		<!-- Debug button -->
+		<div class="mb-4 flex justify-center">
+			<button
+				type="button"
+				class="rounded bg-blue-500 px-4 py-2 text-white hover:bg-blue-600"
+				on:click={addString}
+			>
+				Add String (Debug)
+			</button>
 		</div>
-		<!-- Natural degrees -->
-		<div class="flex justify-center gap-3">
-			{#each naturalDegrees as d}
-				<button
-					type="button"
-					class={buttonClasses +
-						(d.active ? ' ' + buttonActiveClasses : ' ' + buttonInactiveClasses)}
-					style={d.active ? `box-shadow: ${buttonActiveShadow}` : `box-shadow: ${buttonShadow}`}
-					on:click={() => (d.active = !d.active)}
-				>
-					{d.label}
-				</button>
-			{/each}
+		<div class="my-8">
+			<!-- Accidental degrees -->
+			<div class="flex justify-center gap-3">
+				{#each accidentalDegrees as d}
+					{#if d.spacerBefore}
+						<div class="h-22 w-22"></div>
+					{/if}
+					<button
+						type="button"
+						class={buttonClasses +
+							(d.active ? ' ' + buttonActiveClasses : ' ' + buttonInactiveClasses)}
+						style={d.active ? `box-shadow: ${buttonActiveShadow}` : `box-shadow: ${buttonShadow}`}
+						on:click={() => {
+							d.active = !d.active;
+							console.log(degrees);
+						}}
+					>
+						{d.label}
+					</button>
+				{/each}
+			</div>
+			<!-- Natural degrees -->
+			<div class="flex justify-center gap-3">
+				{#each naturalDegrees as d}
+					<button
+						type="button"
+						class={buttonClasses +
+							(d.active ? ' ' + buttonActiveClasses : ' ' + buttonInactiveClasses)}
+						style={d.active ? `box-shadow: ${buttonActiveShadow}` : `box-shadow: ${buttonShadow}`}
+						on:click={() => {
+							d.active = !d.active;
+							console.log(degrees);
+						}}
+					>
+						{d.label}
+					</button>
+				{/each}
+			</div>
 		</div>
 	</div>
 </main>
