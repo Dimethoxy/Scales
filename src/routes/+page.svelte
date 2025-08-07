@@ -39,7 +39,13 @@
 		name: string;
 		strings: { name: NoteName; octave: number }[];
 	};
-	const baseTuningsData: TuningPreset[] = tuningsDataRaw.tunings;
+	const baseTuningsData: TuningPreset[] = tuningsDataRaw.tunings.map((preset: any) => ({
+		name: preset.name,
+		strings: preset.strings.map((s: any) => ({
+			name: s.name as NoteName,
+			octave: s.octave
+		}))
+	}));
 	const customTuning: TuningPreset = {
 		name: 'Custom',
 		strings: []
