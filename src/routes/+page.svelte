@@ -7,7 +7,8 @@
 
 	import PresetSelector from '../lib/components/PresetSelector.svelte';
 	import Fretboard from '../lib/components/Fretboard.svelte';
-	import Controls from '../lib/components/Controls.svelte';
+	import StringControls from '../lib/components/StringControls.svelte';
+	import FretControls from '../lib/components/FretControls.svelte';
 	import DegreeSelector from '../lib/components/DegreeSelector.svelte';
 	import Tooltip from '../lib/components/Tooltip.svelte';
 
@@ -403,13 +404,7 @@
 		/>
 
 		<div class="my-4 flex flex-row items-center justify-between px-8">
-			<Controls
-				{instrumentStrings}
-				{addString}
-				{removeString}
-				{numFrets}
-				setNumFrets={(n: number) => (numFrets = n)}
-			/>
+			<StringControls {instrumentStrings} {addString} {removeString} />
 			<DegreeSelector
 				{accidentalDegrees}
 				{naturalDegrees}
@@ -417,6 +412,7 @@
 				{handleDegreeMouseEnter}
 				{handleDegreeMouseLeave}
 			/>
+			<FretControls {numFrets} setNumFrets={(n: number) => (numFrets = n)} />
 		</div>
 
 		<Tooltip {showTooltip} {tooltipContent} {tooltipX} {tooltipY} />
