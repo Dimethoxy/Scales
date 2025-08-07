@@ -458,10 +458,21 @@
 									<!-- Note indicator -->
 									{#if note && (!onlyShowActiveNotes || scaleDegree >= 0)}
 										<div
-											class="relative z-10 flex h-10 w-10 items-center justify-center rounded-full border border-ctp-surface0 text-xs font-bold text-ctp-crust
+											class="text-md relative z-10 flex h-10 w-10 items-center justify-center rounded-full border border-ctp-surface0 font-bold text-ctp-crust
 											{scaleDegree >= 0 ? getDegreeColor(scaleDegree) : 'bg-ctp-mantle text-ctp-surface2'}"
 										>
-											{note.name}
+											{#if displayDegrees}
+												{#if note}
+													{#key note.name + note.octave}
+														{@const noteIndex = notes.indexOf(note.name)}
+														{@const rootIndex = notes.indexOf(scaleRoot.name)}
+														{@const intervalFromRoot = (((noteIndex - rootIndex) % 12) + 12) % 12}
+														{degrees[intervalFromRoot]?.label}
+													{/key}
+												{/if}
+											{:else}
+												{note.name}
+											{/if}
 										</div>
 									{/if}
 								</div>
