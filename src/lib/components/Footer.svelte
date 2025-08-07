@@ -2,10 +2,9 @@
 </script>
 
 <footer
-	class="z-10 mt-auto flex w-full items-center justify-between bg-ctp-crust px-4 py-2 text-ctp-text"
-	style="min-height:48px"
+	class="z-10 mt-auto flex w-full items-center justify-between bg-ctp-crust px-2 py-1 text-ctp-text"
 >
-	<span class="text-sm">&copy; Dimethoxy</span>
+	<span class="text-sm">© 2025 Dimethoxy Audio. All Rights Reserved.</span>
 	<a
 		href="https://github.com/Dimethoxy"
 		target="_blank"
