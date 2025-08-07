@@ -1,6 +1,4 @@
 <script lang="ts">
-	let onlyShowActiveNotes = false;
-	let displayDegrees = true;
 	type NoteName = 'C' | 'C#' | 'D' | 'D#' | 'E' | 'F' | 'F#' | 'G' | 'G#' | 'A' | 'A#' | 'B';
 	const notes: NoteName[] = ['C', 'C#', 'D', 'D#', 'E', 'F', 'F#', 'G', 'G#', 'A', 'A#', 'B'];
 
@@ -43,14 +41,11 @@
 		{ index: 5, root: { name: 'E', octave: 2 } }
 	];
 
-	// Reactive statement - all string notes recalculate when any root changes
+	//All string notes recalculate when any root changes
 	$: allStringNotes = instrumentStrings.map((string) => generateStringNotes(string.root));
 
-	// Current root note for the scale
-	let scaleRoot: Note = { name: 'C', octave: 4 };
-
 	// Scales and modes loaded from JSON
-
+	let scaleRoot: Note = { name: 'C', octave: 4 };
 	import scalesDataRaw from '../lib/helper/scales.json';
 	type ScalePreset = {
 		name: string;
@@ -88,6 +83,10 @@
 	function offsetDegrees(degrees: number[], offset: number): number[] {
 		return degrees.map((d) => (d + offset) % 12);
 	}
+
+	// Toggle Options
+	let onlyShowActiveNotes = false;
+	let displayDegrees = false;
 
 	// Reactive statement: update degrees when scale/mode changes, unless 'Custom' is selected
 	$: {
