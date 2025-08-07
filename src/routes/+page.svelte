@@ -62,7 +62,7 @@
 			index: 0,
 			label: '1',
 			row: 'natural',
-			active: false,
+			active: true,
 			color: 'bg-ctp-text',
 			description: 'Root note: Establishes tonal center and stability.'
 		},
@@ -78,7 +78,7 @@
 			index: 2,
 			label: '2',
 			row: 'natural',
-			active: false,
+			active: true,
 			color: 'bg-ctp-green',
 			description: 'Major second: Adds brightness and melodic movement.'
 		},
@@ -94,7 +94,7 @@
 			index: 4,
 			label: '3',
 			row: 'natural',
-			active: false,
+			active: true,
 			color: 'bg-ctp-peach',
 			description: 'Major third: Defines major tonality, sounds happy and uplifting.'
 		},
@@ -102,7 +102,7 @@
 			index: 5,
 			label: '4',
 			row: 'natural',
-			active: false,
+			active: true,
 			color: 'bg-ctp-red',
 			description: 'Perfect fourth: Neutral, can sound suspended or unresolved.'
 		},
@@ -120,7 +120,7 @@
 			index: 7,
 			label: '5',
 			row: 'natural',
-			active: false,
+			active: true,
 			color: 'bg-ctp-mauve',
 			description: 'Perfect fifth: Stable and consonant, forms the basis of power chords.'
 		},
@@ -136,7 +136,7 @@
 			index: 9,
 			label: '6',
 			row: 'natural',
-			active: false,
+			active: true,
 			color: 'bg-ctp-blue',
 			description: 'Major sixth: Warm and sweet, common in major and modal scales.'
 		},
@@ -152,7 +152,7 @@
 			index: 11,
 			label: '7',
 			row: 'natural',
-			active: false,
+			active: true,
 			color: 'bg-ctp-sapphire',
 			description: 'Major seventh; dreamy, adds sophistication and tension.'
 		}
