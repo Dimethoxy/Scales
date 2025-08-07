@@ -385,11 +385,11 @@
 			<div class="flex justify-center gap-2">
 				{#each accidentalDegrees as d}
 					{#if d.spacerBefore}
-						<div class="h-16 w-16"></div>
+						<div class="h-12 w-12"></div>
 					{/if}
 					<button
 						type="button"
-						class="flex h-16 w-16 cursor-pointer items-center justify-center rounded-full border border-ctp-surface2 text-2xl text-ctp-crust {d.active
+						class="flex h-12 w-12 cursor-pointer items-center justify-center rounded-full border border-ctp-surface2 text-xl font-bold text-ctp-crust {d.active
 							? d.color
 							: 'bg-ctp-mantle  text-ctp-surface2'}"
 						on:click={() => {
@@ -408,7 +408,7 @@
 				{#each naturalDegrees as d}
 					<button
 						type="button"
-						class="flex h-16 w-16 cursor-pointer items-center justify-center rounded-full border border-ctp-surface2 text-2xl text-ctp-crust {d.active
+						class="flex h-12 w-12 cursor-pointer items-center justify-center rounded-full border border-ctp-surface2 text-xl font-bold text-ctp-crust {d.active
 							? d.color
 							: 'bg-ctp-mantle text-ctp-surface2'}"
 						on:click={() => {
