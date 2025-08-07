@@ -31,22 +31,64 @@
 		return stringNotes;
 	}
 
+	import scalesDataRaw from '../lib/helper/scales.json';
+	import tuningsDataRaw from '../lib/helper/tunings.json';
+
+	// Tuning presets
+	type TuningPreset = {
+		name: string;
+		strings: { name: NoteName; octave: number }[];
+	};
+	const baseTuningsData: TuningPreset[] = tuningsDataRaw.tunings;
+	const customTuning: TuningPreset = {
+		name: 'Custom',
+		strings: []
+	};
+	const tuningsData: TuningPreset[] = [...baseTuningsData, customTuning];
+
+	let selectedTuningIndex = 0;
+	let isCustomTuning = false;
+
+	function setTuning(index: number) {
+		selectedTuningIndex = index;
+		isCustomTuning = tuningsData[selectedTuningIndex].name === 'Custom';
+		const preset = tuningsData[selectedTuningIndex];
+		instrumentStrings = preset.strings.map((s, i) => ({ index: i, root: { ...s } }));
+	}
+
+	function matchCurrentTuningToPreset() {
+		const current = instrumentStrings.map((s) => `${s.root.name}${s.root.octave}`);
+		let foundMatch = false;
+		for (let i = 0; i < baseTuningsData.length; i++) {
+			const preset = baseTuningsData[i];
+			const presetStrings = preset.strings.map((s) => `${s.name}${s.octave}`);
+			if (
+				current.length === presetStrings.length &&
+				current.every((val, idx) => val === presetStrings[idx])
+			) {
+				selectedTuningIndex = i;
+				isCustomTuning = false;
+				foundMatch = true;
+				break;
+			}
+		}
+		if (!foundMatch) {
+			selectedTuningIndex = tuningsData.length - 1;
+			isCustomTuning = true;
+		}
+	}
+
 	// Dynamic list of instrument strings
-	let instrumentStrings: InstrumentString[] = [
-		{ index: 0, root: { name: 'E', octave: 4 } },
-		{ index: 1, root: { name: 'B', octave: 3 } },
-		{ index: 2, root: { name: 'G', octave: 3 } },
-		{ index: 3, root: { name: 'D', octave: 3 } },
-		{ index: 4, root: { name: 'A', octave: 2 } },
-		{ index: 5, root: { name: 'E', octave: 2 } }
-	];
+	let instrumentStrings: InstrumentString[] = tuningsData[0].strings.map((s, i) => ({
+		index: i,
+		root: { ...s }
+	}));
 
 	//All string notes recalculate when any root changes
 	$: allStringNotes = instrumentStrings.map((string) => generateStringNotes(string.root));
 
 	// Scales and modes loaded from JSON
 	let scaleRoot: Note = { name: 'C', octave: 4 };
-	import scalesDataRaw from '../lib/helper/scales.json';
 	type ScalePreset = {
 		name: string;
 		modes: { name: string; degrees?: number[] }[];
@@ -285,16 +327,12 @@
 	function addString() {
 		const newIndex = instrumentStrings.length;
 		let newRoot: Note;
-
 		if (instrumentStrings.length === 0) {
-			// Default root if no strings exist
 			newRoot = { name: 'E', octave: 2 };
 		} else {
-			// Get the last string's root and transpose it down 5 semitones
 			const lastString = instrumentStrings[instrumentStrings.length - 1];
 			newRoot = transpose(lastString.root, -5);
 		}
-
 		instrumentStrings = [
 			...instrumentStrings,
 			{
@@ -302,19 +340,20 @@
 				root: newRoot
 			}
 		];
+		matchCurrentTuningToPreset();
 	}
 
 	function removeString(index: number) {
 		instrumentStrings = instrumentStrings.filter((s) => s.index !== index);
-		// Reindex remaining strings
 		instrumentStrings = instrumentStrings.map((s, i) => ({ ...s, index: i }));
+		matchCurrentTuningToPreset();
 	}
 
-	// Move string root up/down by one semitone
 	function retuneString(stringIndex: number, semitones: number) {
 		const root = instrumentStrings[stringIndex].root;
 		instrumentStrings[stringIndex].root = transpose(root, semitones);
 		instrumentStrings = [...instrumentStrings];
+		matchCurrentTuningToPreset();
 	}
 
 	// Tooltip state
@@ -346,6 +385,16 @@
 		<!-- Preset selector at the top -->
 		<div class="mx-2 flex flex-row items-center justify-between gap-4">
 			<div class="flex flex-row items-center gap-4">
+				<!-- Tunings dropdown -->
+				<select
+					class="text-md rounded border-1 border-ctp-surface2 bg-ctp-mantle px-2 py-1 font-semibold text-ctp-text shadow focus:border-ctp-blue focus:outline-none"
+					bind:value={selectedTuningIndex}
+					on:change={(e) => setTuning(e.target.selectedIndex)}
+				>
+					{#each tuningsData as tuning, i}
+						<option value={i}>{tuning.name}</option>
+					{/each}
+				</select>
 				<select
 					class="text-md rounded border-1 border-ctp-surface2 bg-ctp-mantle px-2 py-1 font-semibold text-ctp-text shadow focus:border-ctp-blue focus:outline-none"
 					bind:value={scaleRoot.name}

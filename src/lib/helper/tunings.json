@@ -1,0 +1,209 @@
+{
+	"tunings": [
+		{
+			"name": "Standard E",
+			"strings": [
+				{ "name": "E", "octave": 4 },
+				{ "name": "B", "octave": 3 },
+				{ "name": "G", "octave": 3 },
+				{ "name": "D", "octave": 3 },
+				{ "name": "A", "octave": 2 },
+				{ "name": "E", "octave": 2 }
+			]
+		},
+		{
+			"name": "Standard D#",
+			"strings": [
+				{ "name": "D#", "octave": 4 },
+				{ "name": "A#", "octave": 3 },
+				{ "name": "F#", "octave": 3 },
+				{ "name": "C#", "octave": 3 },
+				{ "name": "G#", "octave": 2 },
+				{ "name": "D#", "octave": 2 }
+			]
+		},
+		{
+			"name": "Standard D",
+			"strings": [
+				{ "name": "D", "octave": 4 },
+				{ "name": "A", "octave": 3 },
+				{ "name": "F", "octave": 3 },
+				{ "name": "C", "octave": 3 },
+				{ "name": "G", "octave": 2 },
+				{ "name": "D", "octave": 2 }
+			]
+		},
+		{
+			"name": "Standard C#",
+			"strings": [
+				{ "name": "C#", "octave": 4 },
+				{ "name": "G#", "octave": 3 },
+				{ "name": "E", "octave": 3 },
+				{ "name": "B", "octave": 2 },
+				{ "name": "F#", "octave": 2 },
+				{ "name": "C#", "octave": 2 }
+			]
+		},
+		{
+			"name": "Standard C",
+			"strings": [
+				{ "name": "C", "octave": 4 },
+				{ "name": "G", "octave": 3 },
+				{ "name": "D#", "octave": 3 },
+				{ "name": "C#", "octave": 2 },
+				{ "name": "F", "octave": 2 },
+				{ "name": "C", "octave": 2 }
+			]
+		},
+		{
+			"name": "Standard B",
+			"strings": [
+				{ "name": "E", "octave": 4 },
+				{ "name": "B", "octave": 3 },
+				{ "name": "G", "octave": 3 },
+				{ "name": "D", "octave": 3 },
+				{ "name": "A", "octave": 2 },
+				{ "name": "E", "octave": 2 },
+				{ "name": "B", "octave": 1 }
+			]
+		},
+		{
+			"name": "Standard A#",
+			"strings": [
+				{ "name": "D#", "octave": 4 },
+				{ "name": "A#", "octave": 3 },
+				{ "name": "F#", "octave": 3 },
+				{ "name": "C#", "octave": 3 },
+				{ "name": "G#", "octave": 2 },
+				{ "name": "D#", "octave": 2 },
+				{ "name": "A#", "octave": 1 }
+			]
+		},
+		{
+			"name": "Standard A",
+			"strings": [
+				{ "name": "D", "octave": 4 },
+				{ "name": "A", "octave": 3 },
+				{ "name": "F", "octave": 3 },
+				{ "name": "C", "octave": 3 },
+				{ "name": "G", "octave": 2 },
+				{ "name": "D", "octave": 2 },
+				{ "name": "A", "octave": 1 }
+			]
+		},
+		{
+			"name": "Standard G#",
+			"strings": [
+				{ "name": "C#", "octave": 4 },
+				{ "name": "G#", "octave": 3 },
+				{ "name": "E", "octave": 3 },
+				{ "name": "B", "octave": 2 },
+				{ "name": "F#", "octave": 2 },
+				{ "name": "C#", "octave": 2 },
+				{ "name": "G#", "octave": 1 }
+			]
+		},
+		{
+			"name": "Standard F#",
+			"strings": [
+				{ "name": "E", "octave": 4 },
+				{ "name": "B", "octave": 3 },
+				{ "name": "G", "octave": 3 },
+				{ "name": "D", "octave": 3 },
+				{ "name": "A", "octave": 2 },
+				{ "name": "E", "octave": 2 },
+				{ "name": "B", "octave": 1 },
+				{ "name": "F#", "octave": 1 }
+			]
+		},
+		{
+			"name": "Drop D",
+			"strings": [
+				{ "name": "E", "octave": 4 },
+				{ "name": "B", "octave": 3 },
+				{ "name": "G", "octave": 3 },
+				{ "name": "D", "octave": 3 },
+				{ "name": "A", "octave": 2 },
+				{ "name": "D", "octave": 2 }
+			]
+		},
+		{
+			"name": "Drop C#",
+			"strings": [
+				{ "name": "D#", "octave": 4 },
+				{ "name": "A#", "octave": 3 },
+				{ "name": "F#", "octave": 3 },
+				{ "name": "C#", "octave": 3 },
+				{ "name": "G#", "octave": 2 },
+				{ "name": "C#", "octave": 2 }
+			]
+		},
+		{
+			"name": "Drop C",
+			"strings": [
+				{ "name": "D", "octave": 4 },
+				{ "name": "A", "octave": 3 },
+				{ "name": "F", "octave": 3 },
+				{ "name": "C", "octave": 3 },
+				{ "name": "G", "octave": 2 },
+				{ "name": "C", "octave": 2 }
+			]
+		},
+		{
+			"name": "Drop B",
+			"strings": [
+				{ "name": "C#", "octave": 4 },
+				{ "name": "G#", "octave": 3 },
+				{ "name": "E", "octave": 3 },
+				{ "name": "B", "octave": 2 },
+				{ "name": "F#", "octave": 2 },
+				{ "name": "B", "octave": 1 }
+			]
+		},
+		{
+			"name": "Drop A",
+			"strings": [
+				{ "name": "E", "octave": 4 },
+				{ "name": "B", "octave": 3 },
+				{ "name": "G", "octave": 3 },
+				{ "name": "D", "octave": 3 },
+				{ "name": "A", "octave": 2 },
+				{ "name": "E", "octave": 2 },
+				{ "name": "A", "octave": 1 }
+			]
+		},
+		{
+			"name": "Drop G#",
+			"strings": [
+				{ "name": "B", "octave": 3 },
+				{ "name": "F#", "octave": 3 },
+				{ "name": "C#", "octave": 3 },
+				{ "name": "G#", "octave": 2 },
+				{ "name": "D#", "octave": 2 },
+				{ "name": "G#", "octave": 1 }
+			]
+		},
+		{
+			"name": "Drop G",
+			"strings": [
+				{ "name": "A#", "octave": 3 },
+				{ "name": "F", "octave": 3 },
+				{ "name": "C", "octave": 3 },
+				{ "name": "G", "octave": 2 },
+				{ "name": "D", "octave": 2 },
+				{ "name": "G", "octave": 1 }
+			]
+		},
+		{
+			"name": "DADGAD",
+			"strings": [
+				{ "name": "D", "octave": 4 },
+				{ "name": "A", "octave": 3 },
+				{ "name": "G", "octave": 3 },
+				{ "name": "D", "octave": 3 },
+				{ "name": "A", "octave": 2 },
+				{ "name": "D", "octave": 2 }
+			]
+		}
+	]
+}
