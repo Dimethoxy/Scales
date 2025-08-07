@@ -377,7 +377,7 @@
 			</div>
 			<div class="mx-2 flex flex-row items-center gap-6">
 				<label class="inline-flex cursor-pointer items-center">
-					<input type="checkbox" value="" class="peer sr-only" checked />
+					<input type="checkbox" class="peer sr-only" bind:checked={onlyShowActiveNotes} />
 					<span class="mx-2 text-sm font-medium text-ctp-text">Only show active Notes</span>
 					<div
 						class="peer relative h-6 w-11 rounded-full border border-ctp-surface2 bg-ctp-mantle peer-checked:bg-ctp-surface2 after:absolute after:start-[2px] after:top-0.5 after:h-5 after:w-5 after:rounded-full after:bg-ctp-text after:transition-all after:content-[''] peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full"
@@ -385,7 +385,7 @@
 				</label>
 				<label class="inline-flex cursor-pointer items-center">
 					<span class="mx-2 text-sm font-medium text-ctp-text">Display Degrees</span>
-					<input type="checkbox" value="" class="peer sr-only" checked />
+					<input type="checkbox" class="peer sr-only" bind:checked={displayDegrees} />
 					<div
 						class="peer relative h-6 w-11 rounded-full border border-ctp-surface2 bg-ctp-mantle peer-checked:bg-ctp-surface2 after:absolute after:start-[2px] after:top-0.5 after:h-5 after:w-5 after:rounded-full after:bg-ctp-text after:transition-all after:content-[''] peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full"
 					></div>
@@ -456,10 +456,9 @@
 									<div class="absolute h-px w-full bg-ctp-surface2"></div>
 
 									<!-- Note indicator -->
-									{#if note}
+									{#if note && (!onlyShowActiveNotes || scaleDegree >= 0)}
 										<div
 											class="relative z-10 flex h-10 w-10 items-center justify-center rounded-full border border-ctp-surface0 text-xs font-bold text-ctp-crust
-
 											{scaleDegree >= 0 ? getDegreeColor(scaleDegree) : 'bg-ctp-mantle text-ctp-surface2'}"
 										>
 											{note.name}
