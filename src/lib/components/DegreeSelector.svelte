@@ -43,7 +43,7 @@
 			>
 				{#if d.label === 'R'}
 					<span
-						class="pointer-events-none absolute top-2 left-2 h-7.5 w-7.5 rounded-full border-2 border-ctp-mantle"
+						class="pointer-events-none absolute top-0.5 left-0.5 h-10.5 w-10.5 rounded-full border-3 border-ctp-surface2"
 					></span>
 				{/if}
 				{d.label}
