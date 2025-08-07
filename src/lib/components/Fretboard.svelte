@@ -73,7 +73,7 @@
 												{@const intervalFromRoot = (((noteIndex - rootIndex) % 12) + 12) % 12}
 												{#if degrees[intervalFromRoot]?.label === 'R'}
 													<span
-														class="pointer-events-none absolute top-2 left-2 h-6.5 w-6.5 rounded-full border-2 border-ctp-mantle"
+														class="pointer-events-none absolute top-0.5 left-0.5 h-9.5 w-9.5 rounded-full border-3 border-ctp-surface2"
 													></span>
 												{/if}
 												{degrees[intervalFromRoot]?.label}
@@ -86,7 +86,7 @@
 											{@const intervalFromRoot = (((noteIndex - rootIndex) % 12) + 12) % 12}
 											{#if degrees[intervalFromRoot]?.label === 'R'}
 												<span
-													class="pointer-events-none absolute top-2 left-2 h-6.5 w-6.5 rounded-full border-2 border-ctp-mantle"
+													class="pointer-events-none absolute top-0.5 left-0.5 h-9.5 w-9.5 rounded-full border-3 border-ctp-surface2"
 												></span>
 											{/if}
 											{note.name}
