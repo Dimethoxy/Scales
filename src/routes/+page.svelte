@@ -260,46 +260,36 @@
 
 <main>
 	<div class="my-2">
-		<!-- String amount controls -->
-		<div class="justify-left mb-4 flex items-center gap-4 px-8">
-			<span class="text-2xl text-ctp-text">String Amount: {instrumentStrings.length}</span>
-			<button
-				type="button"
-				class="flex h-8 w-8 items-center justify-center rounded bg-ctp-red text-white hover:bg-ctp-red/80 disabled:opacity-50"
-				disabled={instrumentStrings.length <= 1}
-				on:click={() => removeString(instrumentStrings.length - 1)}
+		<!-- Preset selector at the top -->
+		<div class="mb-4 flex flex-row items-center justify-start gap-4 px-8">
+			<select
+				class="text-md rounded border-1 border-ctp-surface2 bg-ctp-mantle px-2 py-1 font-semibold text-ctp-text shadow focus:border-ctp-blue focus:outline-none"
 			>
-				-
-			</button>
-			<button
-				type="button"
-				class="flex h-8 w-8 items-center justify-center rounded bg-ctp-peach text-white hover:bg-ctp-green/80"
-				on:click={addString}
+				{#each notes as note}
+					<option value={note}>{note}</option>
+				{/each}
+			</select>
+			<select
+				class="text-md rounded border-1 border-ctp-surface2 bg-ctp-mantle px-2 py-1 font-semibold text-ctp-text shadow focus:border-ctp-blue focus:outline-none"
 			>
-				+
-			</button>
-
-			<!-- Spacer -->
-			<div class="flex-1"></div>
-
-			<!-- Fret amount controls -->
-			<span class="text-2xl text-ctp-text">Fret Amount: {numFrets}</span>
-			<button
-				type="button"
-				class="flex h-8 w-8 items-center justify-center rounded bg-ctp-red text-white hover:bg-ctp-red/80 disabled:opacity-50"
-				disabled={numFrets <= 1}
-				on:click={() => (numFrets = Math.max(1, numFrets - 1))}
+				<option>Pentatonic</option>
+				<option>Diatonic</option>
+				<option>Harmonic Minor</option>
+				<option>Melodic Minor</option>
+			</select>
+			<select
+				class="text-md rounded border-1 border-ctp-surface2 bg-ctp-mantle px-2 py-1 font-semibold text-ctp-text shadow focus:border-ctp-blue focus:outline-none"
 			>
-				-
-			</button>
-			<button
-				type="button"
-				class="flex h-8 w-8 items-center justify-center rounded bg-ctp-peach text-white hover:bg-ctp-green/80"
-				on:click={() => (numFrets = Math.min(30, numFrets + 1))}
-			>
-				+
-			</button>
+				<option>Mode I</option>
+				<option>Mode II</option>
+				<option>Mode III</option>
+				<option>Mode IV</option>
+				<option>Mode V</option>
+				<option>Mode VI</option>
+				<option>Mode VII</option>
+			</select>
 		</div>
+
 		<!-- Fretboard -->
 		<div class="my-2 overflow-x-auto">
 			<div class="min-w-max">
@@ -380,47 +370,91 @@
 			</div>
 		</div>
 
-		<div class="my-4">
-			<!-- Accidental degrees -->
-			<div class="flex justify-center gap-2">
-				{#each accidentalDegrees as d}
-					{#if d.spacerBefore}
-						<div class="h-12 w-12"></div>
-					{/if}
-					<button
-						type="button"
-						class="flex h-12 w-12 cursor-pointer items-center justify-center rounded-full border border-ctp-surface2 text-xl font-bold text-ctp-crust {d.active
-							? d.color
-							: 'bg-ctp-mantle  text-ctp-surface2'}"
-						on:click={() => {
-							d.active = !d.active;
-							console.log(d.index);
-						}}
-						on:mouseenter={(e) => handleDegreeMouseEnter(e, d)}
-						on:mouseleave={handleDegreeMouseLeave}
-					>
-						{d.label}
-					</button>
-				{/each}
+		<!-- Controls and degree selector at the bottom -->
+		<div class="my-4 flex flex-row items-center justify-between px-8">
+			<!-- String Amount controls (left) -->
+			<div class="flex items-center gap-4">
+				<span class="text-2xl text-ctp-text">String Amount: {instrumentStrings.length}</span>
+				<button
+					type="button"
+					class="flex h-8 w-8 items-center justify-center rounded bg-ctp-red text-white hover:bg-ctp-red/80 disabled:opacity-50"
+					disabled={instrumentStrings.length <= 1}
+					on:click={() => removeString(instrumentStrings.length - 1)}
+				>
+					-
+				</button>
+				<button
+					type="button"
+					class="flex h-8 w-8 items-center justify-center rounded bg-ctp-peach text-white hover:bg-ctp-green/80"
+					on:click={addString}
+				>
+					+
+				</button>
 			</div>
-			<!-- Natural degrees -->
-			<div class="flex justify-center gap-2">
-				{#each naturalDegrees as d}
-					<button
-						type="button"
-						class="flex h-12 w-12 cursor-pointer items-center justify-center rounded-full border border-ctp-surface2 text-xl font-bold text-ctp-crust {d.active
-							? d.color
-							: 'bg-ctp-mantle text-ctp-surface2'}"
-						on:click={() => {
-							d.active = !d.active;
-							console.log(d.color);
-						}}
-						on:mouseenter={(e) => handleDegreeMouseEnter(e, d)}
-						on:mouseleave={handleDegreeMouseLeave}
-					>
-						{d.label}
-					</button>
-				{/each}
+
+			<!-- Degree selectors (center) -->
+			<div class="flex flex-1 flex-col items-center">
+				<!-- Accidental degrees -->
+				<div class="flex justify-center gap-2">
+					{#each accidentalDegrees as d}
+						{#if d.spacerBefore}
+							<div class="h-12 w-12"></div>
+						{/if}
+						<button
+							type="button"
+							class="flex h-12 w-12 cursor-pointer items-center justify-center rounded-full border border-ctp-surface2 text-xl font-bold text-ctp-crust {d.active
+								? d.color
+								: 'bg-ctp-mantle  text-ctp-surface2'}"
+							on:click={() => {
+								d.active = !d.active;
+								console.log(d.index);
+							}}
+							on:mouseenter={(e) => handleDegreeMouseEnter(e, d)}
+							on:mouseleave={handleDegreeMouseLeave}
+						>
+							{d.label}
+						</button>
+					{/each}
+				</div>
+				<!-- Natural degrees -->
+				<div class="flex justify-center gap-2">
+					{#each naturalDegrees as d}
+						<button
+							type="button"
+							class="flex h-12 w-12 cursor-pointer items-center justify-center rounded-full border border-ctp-surface2 text-xl font-bold text-ctp-crust {d.active
+								? d.color
+								: 'bg-ctp-mantle text-ctp-surface2'}"
+							on:click={() => {
+								d.active = !d.active;
+								console.log(d.color);
+							}}
+							on:mouseenter={(e) => handleDegreeMouseEnter(e, d)}
+							on:mouseleave={handleDegreeMouseLeave}
+						>
+							{d.label}
+						</button>
+					{/each}
+				</div>
+			</div>
+
+			<!-- Fret Amount controls (right) -->
+			<div class="flex items-center gap-4">
+				<span class="text-2xl text-ctp-text">Fret Amount: {numFrets}</span>
+				<button
+					type="button"
+					class="flex h-8 w-8 items-center justify-center rounded bg-ctp-red text-white hover:bg-ctp-red/80 disabled:opacity-50"
+					disabled={numFrets <= 1}
+					on:click={() => (numFrets = Math.max(1, numFrets - 1))}
+				>
+					-
+				</button>
+				<button
+					type="button"
+					class="flex h-8 w-8 items-center justify-center rounded bg-ctp-peach text-white hover:bg-ctp-green/80"
+					on:click={() => (numFrets = Math.min(30, numFrets + 1))}
+				>
+					+
+				</button>
 			</div>
 		</div>
 	</div>
