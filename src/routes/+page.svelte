@@ -34,6 +34,12 @@
 	import scalesDataRaw from '../lib/helper/scales.json';
 	import tuningsDataRaw from '../lib/helper/tunings.json';
 
+	import PresetSelector from '../lib/components/PresetSelector.svelte';
+	import Fretboard from '../lib/components/Fretboard.svelte';
+	import Controls from '../lib/components/Controls.svelte';
+	import DegreeSelector from '../lib/components/DegreeSelector.svelte';
+	import Tooltip from '../lib/components/Tooltip.svelte';
+
 	// Tuning presets
 	type TuningPreset = {
 		name: string;
@@ -388,272 +394,55 @@
 
 <main>
 	<div class="my-2">
-		<!-- Preset selector at the top -->
-		<div class="mx-2 flex flex-row items-center justify-between gap-4">
-			<div class="flex flex-row items-center gap-4">
-				<!-- Tunings dropdown -->
-				<select
-					class="text-md rounded border-1 border-ctp-surface2 bg-ctp-mantle px-2 py-1 font-semibold text-ctp-text shadow focus:border-ctp-blue focus:outline-none"
-					bind:value={selectedTuningIndex}
-					on:change={(e) => setTuning(e.target.selectedIndex)}
-				>
-					{#each tuningsData as tuning, i}
-						<option value={i}>{tuning.name}</option>
-					{/each}
-				</select>
-				<select
-					class="text-md rounded border-1 border-ctp-surface2 bg-ctp-mantle px-2 py-1 font-semibold text-ctp-text shadow focus:border-ctp-blue focus:outline-none"
-					bind:value={scaleRoot.name}
-					on:change={handleRootChange}
-				>
-					{#each notes as note}
-						<option value={note}>{note}</option>
-					{/each}
-				</select>
-				<select
-					class="text-md rounded border-1 border-ctp-surface2 bg-ctp-mantle px-2 py-1 font-semibold text-ctp-text shadow focus:border-ctp-blue focus:outline-none"
-					on:change={handleScaleChange}
-					bind:value={selectedScaleIndex}
-				>
-					{#each scalesData as scale, i}
-						<option value={i}>{scale.name}</option>
-					{/each}
-				</select>
-				<select
-					class="text-md rounded border-1 border-ctp-surface2 bg-ctp-mantle px-2 py-1 font-semibold text-ctp-text shadow focus:border-ctp-blue focus:outline-none"
-					on:change={handleModeChange}
-					bind:value={selectedModeIndex}
-				>
-					{#each scalesData[selectedScaleIndex].modes as mode, j}
-						<option value={j}>{mode.name}</option>
-					{/each}
-				</select>
-			</div>
-			<div class="mx-2 flex flex-row items-center gap-6">
-				<label class="inline-flex cursor-pointer items-center">
-					<input type="checkbox" class="peer sr-only" bind:checked={onlyShowActiveNotes} />
-					<span class="mx-2 text-sm font-medium text-ctp-text">Only show active Notes</span>
-					<div
-						class="peer relative h-6 w-11 rounded-full border-ctp-surface2 bg-ctp-mantle outline outline-ctp-surface2 peer-checked:bg-ctp-surface2 peer-checked:outline-ctp-text after:absolute after:start-[2px] after:top-0.5 after:h-5 after:w-5 after:rounded-full after:bg-ctp-text after:transition-all after:content-[''] peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full"
-					></div>
-				</label>
-				<label class="inline-flex cursor-pointer items-center">
-					<span class="mx-2 text-sm font-medium text-ctp-text">Display Degrees</span>
-					<input type="checkbox" class="peer sr-only" bind:checked={displayDegrees} />
-					<div
-						class="peer relative h-6 w-11 rounded-full border-ctp-surface2 bg-ctp-mantle outline outline-ctp-surface2 peer-checked:bg-ctp-surface2 peer-checked:outline-ctp-text after:absolute after:start-[2px] after:top-0.5 after:h-5 after:w-5 after:rounded-full after:bg-ctp-text after:transition-all after:content-[''] peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full"
-					></div>
-				</label>
-			</div>
-		</div>
+		<PresetSelector
+			{tuningsData}
+			{selectedTuningIndex}
+			{setTuning}
+			{notes}
+			{scaleRoot}
+			{handleRootChange}
+			{scalesData}
+			{selectedScaleIndex}
+			{handleScaleChange}
+			{selectedModeIndex}
+			{handleModeChange}
+			{onlyShowActiveNotes}
+			{displayDegrees}
+			setOnlyShowActiveNotes={(e: Event) => (onlyShowActiveNotes = e.target.checked)}
+			setDisplayDegrees={(e: Event) => (displayDegrees = (e.target as HTMLInputElement).checked)}
+		/>
 
-		<!-- Fretboard -->
-		<div class="my-1 overflow-x-auto">
-			<div class="min-w-max">
-				<!-- Fret numbers header -->
-				<div class="flex px-2">
-					<!-- Empty space for string tuning column -->
-					<div class="w-8"></div>
-					<!-- Fret numbers -->
-					{#each Array(numFrets + 1) as _, fret}
-						<div class="flex min-w-12 flex-1 items-center justify-center text-lg text-ctp-subtext0">
-							{fret}
-						</div>
-					{/each}
-				</div>
+		<Fretboard
+			{instrumentStrings}
+			{allStringNotes}
+			{stringNotesDegrees}
+			{notes}
+			{scaleRoot}
+			{degrees}
+			{numFrets}
+			{onlyShowActiveNotes}
+			{displayDegrees}
+			{getDegreeColor}
+			{retuneString}
+		/>
 
-				<!-- Fretboard grid -->
-				<div class="mx-1 rounded border-2 border-ctp-surface2 bg-ctp-base">
-					{#each instrumentStrings as string, stringIndex}
-						<div class="flex items-center border-1 border-ctp-surface2">
-							<!-- String tuning with vertical chevron buttons -->
-							<div
-								class="flex w-8 flex-col items-center justify-center text-center text-sm font-bold text-ctp-text"
-							>
-								<!-- Up button (chevron up) - minimal height -->
-								<button
-									type="button"
-									class="flex h-3 w-10 items-center justify-center border-none bg-transparent p-0 focus:outline-none"
-									title="Tune up"
-									aria-label="Tune string up"
-									on:click={() => retuneString(stringIndex, 1)}
-									style="background: none;"
-								>
-									<i class="fa-solid fa-chevron-up text-xs text-ctp-overlay2"></i>
-								</button>
-								<!-- Root label -->
-								<span class="scroll">{string.root.name}{string.root.octave}</span>
-								<!-- Down button (chevron down) - minimal height -->
-								<button
-									type="button"
-									class="flex h-3 w-10 items-center justify-center border-none bg-transparent p-0 focus:outline-none"
-									title="Tune down"
-									aria-label="Tune string down"
-									on:click={() => retuneString(stringIndex, -1)}
-									style="background: none;"
-								>
-									<i class="fa-solid fa-chevron-down text-xs text-ctp-overlay2"></i>
-								</button>
-							</div>
-
-							<!-- Fret positions -->
-							{#each Array(numFrets + 1) as _, fret}
-								{@const note = allStringNotes[stringIndex][fret]}
-								{@const scaleDegree = stringNotesDegrees[stringIndex][fret]}
-								<div class="relative flex h-12 min-w-12 flex-1 items-center justify-center">
-									<!-- Fret marker (visual fret line) -->
-									{#if fret > 0}
-										<div class="absolute top-0 left-0 h-full w-px bg-ctp-surface0"></div>
-									{/if}
-
-									<!-- String line -->
-									<div class="absolute h-px w-full bg-ctp-surface2" hidden></div>
-
-									<!-- Note indicator -->
-									{#if note && (!onlyShowActiveNotes || scaleDegree >= 0)}
-										<div
-											class="text-md relative z-10 flex h-11 w-11 items-center justify-center rounded-full border border-ctp-surface0 font-bold text-ctp-crust
-											{scaleDegree >= 0 ? getDegreeColor(scaleDegree) : 'bg-ctp-mantle text-ctp-surface2'}"
-										>
-											{#if displayDegrees}
-												{#if note}
-													{#key note.name + note.octave}
-														{@const noteIndex = notes.indexOf(note.name)}
-														{@const rootIndex = notes.indexOf(scaleRoot.name)}
-														{@const intervalFromRoot = (((noteIndex - rootIndex) % 12) + 12) % 12}
-														{#if degrees[intervalFromRoot]?.label === 'R'}
-															<!-- Black circle around Root -->
-															<span
-																class="pointer-events-none absolute top-2 left-2 h-6.5 w-6.5 rounded-full border-2 border-ctp-mantle"
-															></span>
-														{/if}
-														{degrees[intervalFromRoot]?.label}
-													{/key}
-												{/if}
-											{:else if note}
-												{#key note.name + note.octave}
-													{@const noteIndex = notes.indexOf(note.name)}
-													{@const rootIndex = notes.indexOf(scaleRoot.name)}
-													{@const intervalFromRoot = (((noteIndex - rootIndex) % 12) + 12) % 12}
-													{#if degrees[intervalFromRoot]?.label === 'R'}
-														<!-- Black circle around Root -->
-														<span
-															class="pointer-events-none absolute top-2 left-2 h-6.5 w-6.5 rounded-full border-2 border-ctp-mantle"
-														></span>
-													{/if}
-													{note.name}
-												{/key}
-											{/if}
-										</div>
-									{/if}
-								</div>
-							{/each}
-						</div>
-					{/each}
-				</div>
-			</div>
-		</div>
-
-		<!-- Controls and degree selector at the bottom -->
 		<div class="my-4 flex flex-row items-center justify-between px-8">
-			<!-- String Amount controls (left) -->
-			<div class="flex items-center gap-2">
-				<span class="text-2xl text-ctp-text">String Amount: {instrumentStrings.length}</span>
-				<button
-					type="button"
-					class="flex h-6 w-6 items-center justify-center rounded border-1 border-ctp-surface2 bg-ctp-mantle text-ctp-text hover:bg-ctp-text hover:text-ctp-crust disabled:opacity-50"
-					disabled={instrumentStrings.length <= 1}
-					on:click={() => removeString(instrumentStrings.length - 1)}
-				>
-					-
-				</button>
-				<button
-					type="button"
-					class="flex h-6 w-6 items-center justify-center rounded border-1 border-ctp-surface2 bg-ctp-mantle text-ctp-text hover:bg-ctp-text hover:text-ctp-crust disabled:opacity-50"
-					on:click={addString}
-				>
-					+
-				</button>
-			</div>
-
-			<!-- Degree selectors (center) -->
-			<div class="flex flex-1 flex-col items-center">
-				<!-- Accidental degrees -->
-				<div class="flex justify-center gap-2">
-					{#each accidentalDegrees as d}
-						{#if d.spacerBefore}
-							<div class="h-12 w-12"></div>
-						{/if}
-						<button
-							type="button"
-							class="flex h-12 w-12 cursor-pointer items-center justify-center rounded-full border border-ctp-surface2 text-xl font-bold text-ctp-crust {d.active
-								? d.color
-								: 'bg-ctp-mantle  text-ctp-surface2'} relative"
-							on:click={() => toggleDegree(d.index)}
-							on:mouseenter={(e) => handleDegreeMouseEnter(e, d)}
-							on:mouseleave={handleDegreeMouseLeave}
-						>
-							{#if d.label === 'R'}
-								<span
-									class="pointer-events-none absolute top-2 left-2 h-7.5 w-7.5 rounded-full border-2 border-ctp-mantle"
-								></span>
-							{/if}
-							{d.label}
-						</button>
-					{/each}
-				</div>
-				<!-- Natural degrees -->
-				<div class="flex justify-center gap-2">
-					{#each naturalDegrees as d}
-						<button
-							type="button"
-							class="flex h-12 w-12 cursor-pointer items-center justify-center rounded-full border border-ctp-surface2 text-xl font-bold text-ctp-crust {d.active
-								? d.color
-								: 'bg-ctp-mantle text-ctp-surface2'} relative"
-							on:click={() => toggleDegree(d.index)}
-							on:mouseenter={(e) => handleDegreeMouseEnter(e, d)}
-							on:mouseleave={handleDegreeMouseLeave}
-						>
-							{#if d.label === 'R'}
-								<span
-									class="pointer-events-none absolute top-2 left-2 h-7.5 w-7.5 rounded-full border-2 border-ctp-mantle"
-								></span>
-							{/if}
-							{d.label}
-						</button>
-					{/each}
-				</div>
-			</div>
-
-			<!-- Fret Amount controls (right) -->
-			<div class="flex items-center gap-2">
-				<span class="text-2xl text-ctp-text">Fret Amount: {numFrets}</span>
-				<button
-					type="button"
-					class="flex h-6 w-6 items-center justify-center rounded border-1 border-ctp-surface2 bg-ctp-mantle text-ctp-text hover:bg-ctp-text hover:text-ctp-crust disabled:opacity-50"
-					disabled={numFrets <= 1}
-					on:click={() => (numFrets = Math.max(1, numFrets - 1))}
-				>
-					-
-				</button>
-				<button
-					type="button"
-					class="flex h-6 w-6 items-center justify-center rounded border-1 border-ctp-surface2 bg-ctp-mantle text-ctp-text hover:bg-ctp-text hover:text-ctp-crust disabled:opacity-50"
-					on:click={() => (numFrets = Math.min(30, numFrets + 1))}
-				>
-					+
-				</button>
-			</div>
+			<Controls
+				{instrumentStrings}
+				{addString}
+				{removeString}
+				{numFrets}
+				setNumFrets={(n: number) => (numFrets = n)}
+			/>
+			<DegreeSelector
+				{accidentalDegrees}
+				{naturalDegrees}
+				{toggleDegree}
+				{handleDegreeMouseEnter}
+				{handleDegreeMouseLeave}
+			/>
 		</div>
+
+		<Tooltip {showTooltip} {tooltipContent} {tooltipX} {tooltipY} />
 	</div>
-
-	<!-- Tooltip -->
-	{#if showTooltip}
-		<div
-			class="pointer-events-none fixed z-50 max-w-xs rounded border border-ctp-surface2 bg-ctp-mantle px-3 py-2 text-sm text-ctp-text shadow-lg"
-			style="left: {tooltipX}px; top: {tooltipY}px; transform: translateX(-50%) translateY(-100%);"
-		>
-			{tooltipContent}
-		</div>
-	{/if}
 </main>
