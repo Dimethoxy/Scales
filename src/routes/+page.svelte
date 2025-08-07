@@ -1,35 +1,6 @@
 <script lang="ts">
-	type NoteName = 'C' | 'C#' | 'D' | 'D#' | 'E' | 'F' | 'F#' | 'G' | 'G#' | 'A' | 'A#' | 'B';
-	const notes: NoteName[] = ['C', 'C#', 'D', 'D#', 'E', 'F', 'F#', 'G', 'G#', 'A', 'A#', 'B'];
-
-	type Note = {
-		name: NoteName;
-		octave: number;
-	};
-
-	function transpose(note: Note, semitones: number): Note {
-		const currentIndex = notes.indexOf(note.name);
-		const newIndex = (((currentIndex + semitones) % 12) + 12) % 12;
-		const octaveChange = Math.floor((currentIndex + semitones) / 12);
-
-		return {
-			name: notes[newIndex],
-			octave: note.octave + octaveChange
-		};
-	}
-
-	type InstrumentString = {
-		index: number;
-		root: Note;
-	};
-
-	function generateStringNotes(root: Note): Note[] {
-		const stringNotes: Note[] = [];
-		for (let i = 0; i < 32; i++) {
-			stringNotes.push(transpose(root, i));
-		}
-		return stringNotes;
-	}
+	import { notes, transpose, generateStringNotes } from '../lib/helper/musicTheory';
+	import type { NoteName, Note, InstrumentString } from '../lib/helper/musicTheory';
 
 	import scalesDataRaw from '../lib/helper/scales.json';
 	import tuningsDataRaw from '../lib/helper/tunings.json';
@@ -408,7 +379,12 @@
 			{handleModeChange}
 			{onlyShowActiveNotes}
 			{displayDegrees}
-			setOnlyShowActiveNotes={(e: Event) => (onlyShowActiveNotes = e.target.checked)}
+			setOnlyShowActiveNotes={(e: Event) => {
+				const target = e.target as HTMLInputElement | null;
+				if (target) {
+					onlyShowActiveNotes = target.checked;
+				}
+			}}
 			setDisplayDegrees={(e: Event) => (displayDegrees = (e.target as HTMLInputElement).checked)}
 		/>
 
