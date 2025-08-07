@@ -68,8 +68,8 @@
 									{#if displayDegrees}
 										{#if note}
 											{#key note.name + note.octave}
-												{@const noteIndex = notes.indexOf(note.name)}
-												{@const rootIndex = notes.indexOf(scaleRoot.name)}
+												{@const noteIndex: number = notes.indexOf(note.name)}
+												{@const rootIndex: number = notes.indexOf(scaleRoot.name)}
 												{@const intervalFromRoot = (((noteIndex - rootIndex) % 12) + 12) % 12}
 												{#if degrees[intervalFromRoot]?.label === 'R'}
 													<span
@@ -81,8 +81,8 @@
 										{/if}
 									{:else if note}
 										{#key note.name + note.octave}
-											{@const noteIndex = notes.indexOf(note.name)}
-											{@const rootIndex = notes.indexOf(scaleRoot.name)}
+											{@const noteIndex: number = notes.indexOf(note.name)}
+											{@const rootIndex: number = notes.indexOf(scaleRoot.name)}
 											{@const intervalFromRoot = (((noteIndex - rootIndex) % 12) + 12) % 12}
 											{#if degrees[intervalFromRoot]?.label === 'R'}
 												<span
