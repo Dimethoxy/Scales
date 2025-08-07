@@ -113,7 +113,7 @@
 	let degrees: Degree[] = [
 		{
 			index: 0,
-			label: '1',
+			label: 'R',
 			row: 'natural',
 			active: true,
 			color: 'bg-ctp-text',
@@ -123,8 +123,8 @@
 			index: 1,
 			label: 'b2',
 			row: 'accidental',
-			active: false,
-			color: 'bg-ctp-teal',
+			active: true,
+			color: 'bg-ctp-lavender',
 			description: 'Minor second: Very dissonant, often used for tension or exotic scales.'
 		},
 		{
@@ -132,15 +132,15 @@
 			label: '2',
 			row: 'natural',
 			active: true,
-			color: 'bg-ctp-green',
+			color: 'bg-ctp-blue',
 			description: 'Major second: Adds brightness and melodic movement.'
 		},
 		{
 			index: 3,
 			label: 'b3',
 			row: 'accidental',
-			active: false,
-			color: 'bg-ctp-yellow',
+			active: true,
+			color: 'bg-ctp-sky',
 			description: 'Minor third: Gives minor tonality, evokes sadness or introspection.'
 		},
 		{
@@ -148,7 +148,7 @@
 			label: '3',
 			row: 'natural',
 			active: true,
-			color: 'bg-ctp-peach',
+			color: 'bg-ctp-sapphire',
 			description: 'Major third: Defines major tonality, sounds happy and uplifting.'
 		},
 		{
@@ -156,15 +156,15 @@
 			label: '4',
 			row: 'natural',
 			active: true,
-			color: 'bg-ctp-red',
+			color: 'bg-ctp-green',
 			description: 'Perfect fourth: Neutral, can sound suspended or unresolved.'
 		},
 		{
 			index: 6,
 			label: 'b5',
 			row: 'accidental',
-			active: false,
-			color: 'bg-ctp-pink',
+			active: true,
+			color: 'bg-ctp-yellow',
 			spacerBefore: true,
 			description:
 				'Diminished fifth: Also called Tritone, very dissonant, used for tension and drama.'
@@ -174,15 +174,15 @@
 			label: '5',
 			row: 'natural',
 			active: true,
-			color: 'bg-ctp-mauve',
+			color: 'bg-ctp-peach',
 			description: 'Perfect fifth: Stable and consonant, forms the basis of power chords.'
 		},
 		{
 			index: 8,
 			label: 'b6',
 			row: 'accidental',
-			active: false,
-			color: 'bg-ctp-lavender',
+			active: true,
+			color: 'bg-ctp-maroon',
 			description: 'Minor sixth: Adds melancholy, used in minor and exotic scales.'
 		},
 		{
@@ -190,15 +190,15 @@
 			label: '6',
 			row: 'natural',
 			active: true,
-			color: 'bg-ctp-blue',
+			color: 'bg-ctp-red',
 			description: 'Major sixth: Warm and sweet, common in major and modal scales.'
 		},
 		{
 			index: 10,
 			label: 'b7',
 			row: 'accidental',
-			active: false,
-			color: 'bg-ctp-sky',
+			active: true,
+			color: 'bg-ctp-pink',
 			description: 'Minor seventh: luesy, jazzy, adds tension and color.'
 		},
 		{
@@ -206,7 +206,7 @@
 			label: '7',
 			row: 'natural',
 			active: true,
-			color: 'bg-ctp-sapphire',
+			color: 'bg-ctp-mauve',
 			description: 'Major seventh; dreamy, adds sophistication and tension.'
 		}
 	];
