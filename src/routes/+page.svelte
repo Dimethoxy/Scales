@@ -47,6 +47,11 @@
 	// Current root note for the scale
 	let scaleRoot: Note = { name: 'C', octave: 4 };
 
+	function handleRootChange(e: Event) {
+		const selectedName = (e.target as HTMLSelectElement).value as NoteName;
+		scaleRoot = { ...scaleRoot, name: selectedName };
+	}
+
 	type Degree = {
 		index: number;
 		label: string;
@@ -264,6 +269,8 @@
 		<div class="mx-2 flex flex-row items-center justify-start gap-4">
 			<select
 				class="text-md rounded border-1 border-ctp-surface2 bg-ctp-mantle px-2 py-1 font-semibold text-ctp-text shadow focus:border-ctp-blue focus:outline-none"
+				bind:value={scaleRoot.name}
+				on:change={handleRootChange}
 			>
 				{#each notes as note}
 					<option value={note}>{note}</option>
