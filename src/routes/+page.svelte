@@ -466,11 +466,28 @@
 														{@const noteIndex = notes.indexOf(note.name)}
 														{@const rootIndex = notes.indexOf(scaleRoot.name)}
 														{@const intervalFromRoot = (((noteIndex - rootIndex) % 12) + 12) % 12}
+														{#if degrees[intervalFromRoot]?.label === 'R'}
+															<!-- Black circle around Root -->
+															<span
+																class="pointer-events-none absolute top-2 left-2 h-6.5 w-6.5 rounded-full border-2 border-ctp-mantle"
+															></span>
+														{/if}
 														{degrees[intervalFromRoot]?.label}
 													{/key}
 												{/if}
-											{:else}
-												{note.name}
+											{:else if note}
+												{#key note.name + note.octave}
+													{@const noteIndex = notes.indexOf(note.name)}
+													{@const rootIndex = notes.indexOf(scaleRoot.name)}
+													{@const intervalFromRoot = (((noteIndex - rootIndex) % 12) + 12) % 12}
+													{#if degrees[intervalFromRoot]?.label === 'R'}
+														<!-- Black circle around Root -->
+														<span
+															class="pointer-events-none absolute top-2 left-2 h-6.5 w-6.5 rounded-full border-2 border-ctp-mantle"
+														></span>
+													{/if}
+													{note.name}
+												{/key}
 											{/if}
 										</div>
 									{/if}
@@ -516,11 +533,16 @@
 							type="button"
 							class="flex h-12 w-12 cursor-pointer items-center justify-center rounded-full border border-ctp-surface2 text-xl font-bold text-ctp-crust {d.active
 								? d.color
-								: 'bg-ctp-mantle  text-ctp-surface2'}"
+								: 'bg-ctp-mantle  text-ctp-surface2'} relative"
 							on:click={() => toggleDegree(d.index)}
 							on:mouseenter={(e) => handleDegreeMouseEnter(e, d)}
 							on:mouseleave={handleDegreeMouseLeave}
 						>
+							{#if d.label === 'R'}
+								<span
+									class="pointer-events-none absolute top-2 left-2 h-7.5 w-7.5 rounded-full border-2 border-ctp-mantle"
+								></span>
+							{/if}
 							{d.label}
 						</button>
 					{/each}
@@ -532,11 +554,16 @@
 							type="button"
 							class="flex h-12 w-12 cursor-pointer items-center justify-center rounded-full border border-ctp-surface2 text-xl font-bold text-ctp-crust {d.active
 								? d.color
-								: 'bg-ctp-mantle text-ctp-surface2'}"
+								: 'bg-ctp-mantle text-ctp-surface2'} relative"
 							on:click={() => toggleDegree(d.index)}
 							on:mouseenter={(e) => handleDegreeMouseEnter(e, d)}
 							on:mouseleave={handleDegreeMouseLeave}
 						>
+							{#if d.label === 'R'}
+								<span
+									class="pointer-events-none absolute top-2 left-2 h-7.5 w-7.5 rounded-full border-2 border-ctp-mantle"
+								></span>
+							{/if}
 							{d.label}
 						</button>
 					{/each}
