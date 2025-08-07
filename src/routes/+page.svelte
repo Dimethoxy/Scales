@@ -1,4 +1,6 @@
 <script lang="ts">
+	let onlyShowActiveNotes = false;
+	let displayDegrees = true;
 	type NoteName = 'C' | 'C#' | 'D' | 'D#' | 'E' | 'F' | 'F#' | 'G' | 'G#' | 'A' | 'A#' | 'B';
 	const notes: NoteName[] = ['C', 'C#', 'D', 'D#', 'E', 'F', 'F#', 'G', 'G#', 'A', 'A#', 'B'];
 
@@ -343,34 +345,52 @@
 <main>
 	<div class="my-2">
 		<!-- Preset selector at the top -->
-		<div class="mx-2 flex flex-row items-center justify-start gap-4">
-			<select
-				class="text-md rounded border-1 border-ctp-surface2 bg-ctp-mantle px-2 py-1 font-semibold text-ctp-text shadow focus:border-ctp-blue focus:outline-none"
-				bind:value={scaleRoot.name}
-				on:change={handleRootChange}
-			>
-				{#each notes as note}
-					<option value={note}>{note}</option>
-				{/each}
-			</select>
-			<select
-				class="text-md rounded border-1 border-ctp-surface2 bg-ctp-mantle px-2 py-1 font-semibold text-ctp-text shadow focus:border-ctp-blue focus:outline-none"
-				on:change={handleScaleChange}
-				bind:value={selectedScaleIndex}
-			>
-				{#each scalesData as scale, i}
-					<option value={i}>{scale.name}</option>
-				{/each}
-			</select>
-			<select
-				class="text-md rounded border-1 border-ctp-surface2 bg-ctp-mantle px-2 py-1 font-semibold text-ctp-text shadow focus:border-ctp-blue focus:outline-none"
-				on:change={handleModeChange}
-				bind:value={selectedModeIndex}
-			>
-				{#each scalesData[selectedScaleIndex].modes as mode, j}
-					<option value={j}>{mode.name}</option>
-				{/each}
-			</select>
+		<div class="mx-2 flex flex-row items-center justify-between gap-4">
+			<div class="flex flex-row items-center gap-4">
+				<select
+					class="text-md rounded border-1 border-ctp-surface2 bg-ctp-mantle px-2 py-1 font-semibold text-ctp-text shadow focus:border-ctp-blue focus:outline-none"
+					bind:value={scaleRoot.name}
+					on:change={handleRootChange}
+				>
+					{#each notes as note}
+						<option value={note}>{note}</option>
+					{/each}
+				</select>
+				<select
+					class="text-md rounded border-1 border-ctp-surface2 bg-ctp-mantle px-2 py-1 font-semibold text-ctp-text shadow focus:border-ctp-blue focus:outline-none"
+					on:change={handleScaleChange}
+					bind:value={selectedScaleIndex}
+				>
+					{#each scalesData as scale, i}
+						<option value={i}>{scale.name}</option>
+					{/each}
+				</select>
+				<select
+					class="text-md rounded border-1 border-ctp-surface2 bg-ctp-mantle px-2 py-1 font-semibold text-ctp-text shadow focus:border-ctp-blue focus:outline-none"
+					on:change={handleModeChange}
+					bind:value={selectedModeIndex}
+				>
+					{#each scalesData[selectedScaleIndex].modes as mode, j}
+						<option value={j}>{mode.name}</option>
+					{/each}
+				</select>
+			</div>
+			<div class="mx-2 flex flex-row items-center gap-6">
+				<label class="inline-flex cursor-pointer items-center">
+					<input type="checkbox" value="" class="peer sr-only" checked />
+					<span class="mx-2 text-sm font-medium text-ctp-text">Only show active Notes</span>
+					<div
+						class="peer relative h-6 w-11 rounded-full border border-ctp-surface2 bg-ctp-mantle peer-checked:bg-ctp-surface2 after:absolute after:start-[2px] after:top-0.5 after:h-5 after:w-5 after:rounded-full after:bg-ctp-text after:transition-all after:content-[''] peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full"
+					></div>
+				</label>
+				<label class="inline-flex cursor-pointer items-center">
+					<span class="mx-2 text-sm font-medium text-ctp-text">Display Degrees</span>
+					<input type="checkbox" value="" class="peer sr-only" checked />
+					<div
+						class="peer relative h-6 w-11 rounded-full border border-ctp-surface2 bg-ctp-mantle peer-checked:bg-ctp-surface2 after:absolute after:start-[2px] after:top-0.5 after:h-5 after:w-5 after:rounded-full after:bg-ctp-text after:transition-all after:content-[''] peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full"
+					></div>
+				</label>
+			</div>
 		</div>
 
 		<!-- Fretboard -->
@@ -456,11 +476,11 @@
 		<!-- Controls and degree selector at the bottom -->
 		<div class="my-4 flex flex-row items-center justify-between px-8">
 			<!-- String Amount controls (left) -->
-			<div class="flex items-center gap-4">
+			<div class="flex items-center gap-2">
 				<span class="text-2xl text-ctp-text">String Amount: {instrumentStrings.length}</span>
 				<button
 					type="button"
-					class="flex h-8 w-8 items-center justify-center rounded bg-ctp-red text-white hover:bg-ctp-red/80 disabled:opacity-50"
+					class="flex h-6 w-6 items-center justify-center rounded border-1 border-ctp-surface2 bg-ctp-mantle text-ctp-text hover:bg-ctp-text hover:text-ctp-crust disabled:opacity-50"
 					disabled={instrumentStrings.length <= 1}
 					on:click={() => removeString(instrumentStrings.length - 1)}
 				>
@@ -468,7 +488,7 @@
 				</button>
 				<button
 					type="button"
-					class="flex h-8 w-8 items-center justify-center rounded bg-ctp-peach text-white hover:bg-ctp-green/80"
+					class="flex h-6 w-6 items-center justify-center rounded border-1 border-ctp-surface2 bg-ctp-mantle text-ctp-text hover:bg-ctp-text hover:text-ctp-crust disabled:opacity-50"
 					on:click={addString}
 				>
 					+
@@ -515,11 +535,11 @@
 			</div>
 
 			<!-- Fret Amount controls (right) -->
-			<div class="flex items-center gap-4">
+			<div class="flex items-center gap-2">
 				<span class="text-2xl text-ctp-text">Fret Amount: {numFrets}</span>
 				<button
 					type="button"
-					class="flex h-8 w-8 items-center justify-center rounded bg-ctp-red text-white hover:bg-ctp-red/80 disabled:opacity-50"
+					class="flex h-6 w-6 items-center justify-center rounded border-1 border-ctp-surface2 bg-ctp-mantle text-ctp-text hover:bg-ctp-text hover:text-ctp-crust disabled:opacity-50"
 					disabled={numFrets <= 1}
 					on:click={() => (numFrets = Math.max(1, numFrets - 1))}
 				>
@@ -527,7 +547,7 @@
 				</button>
 				<button
 					type="button"
-					class="flex h-8 w-8 items-center justify-center rounded bg-ctp-peach text-white hover:bg-ctp-green/80"
+					class="flex h-6 w-6 items-center justify-center rounded border-1 border-ctp-surface2 bg-ctp-mantle text-ctp-text hover:bg-ctp-text hover:text-ctp-crust disabled:opacity-50"
 					on:click={() => (numFrets = Math.min(30, numFrets + 1))}
 				>
 					+
