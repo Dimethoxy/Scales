@@ -246,11 +246,40 @@
 	// Current degree active states (for toggling)
 	let activeDegrees: boolean[] = Array(degrees.length).fill(false);
 
-	// Toggle degree active state and switch to Custom mode
+	// Helper: compare two arrays for equality (order and values)
+	function arraysEqual(a: number[], b: number[]): boolean {
+		if (a.length !== b.length) return false;
+		const sortedA = [...a].sort((x, y) => x - y);
+		const sortedB = [...b].sort((x, y) => x - y);
+		return sortedA.every((val, i) => val === sortedB[i]);
+	}
+
+	// Toggle degree active state and try to match a known scale/mode
 	function toggleDegree(index: number) {
 		degrees[index].active = !degrees[index].active;
-		// Switch to Custom scale/mode if not already
-		if (!isCustom) {
+		// Get current active degrees
+		const currentActive = degrees.filter((d) => d.active).map((d) => d.index);
+		let foundMatch = false;
+		// Search all scales/modes except Custom
+		for (let i = 0; i < baseScalesData.length; i++) {
+			const scale = baseScalesData[i];
+			for (let j = 0; j < scale.modes.length; j++) {
+				let modeDegrees = scale.modes[j].degrees;
+				if (!modeDegrees && scale.modes[0].degrees) {
+					// If degrees not defined, offset base degrees
+					modeDegrees = offsetDegrees(scale.modes[0].degrees, j);
+				}
+				if (modeDegrees && arraysEqual(currentActive, modeDegrees)) {
+					selectedScaleIndex = i;
+					selectedModeIndex = j;
+					isCustom = false;
+					foundMatch = true;
+					break;
+				}
+			}
+			if (foundMatch) break;
+		}
+		if (!foundMatch) {
 			selectedScaleIndex = scalesData.length - 1;
 			selectedModeIndex = 0;
 			isCustom = true;
