@@ -1,38 +1,18 @@
-# sv
+# Scales Trainer
 
-Everything you need to build a Svelte project, powered by [`sv`](https://github.com/sveltejs/cli).
+**Interactive Guitar Scale Visualizer & Practice Tool**
 
-## Creating a project
+Master guitar scales with ease using Scales Trainer, the ultimate web app for visualizing and practicing scales across any number of strings and up to 24 frets. Choose your tuning, pick from an endless selection of scales and modes, and explore colorful, intuitive fretboard patterns.
 
-If you're seeing this, you've probably already done this step. Congrats!
+## Features
 
-```sh
-# create a new project in the current directory
-npx sv create
+- Supports arbitrary string counts — from 6 up to 9 strings (and beyond)  
+- Displays up to 24 frets on the fretboard  
+- Select from an endless library of scales and modes to fit your style  
+- Color-coded notes and scale degrees for quick visual reference  
+- Toggle views to show only active notes or scale degrees  
+- Modern, customizable themes powered by Catppuccin  
 
-# create a new project in my-app
-npx sv create my-app
-```
+## Why Use Scales Trainer?
 
-## Developing
-
-Once you've created a project and installed dependencies with `npm install` (or `pnpm install` or `yarn`), start a development server:
-
-```sh
-npm run dev
-
-# or start the server and open the app in a new browser tab
-npm run dev -- --open
-```
-
-## Building
-
-To create a production version of your app:
-
-```sh
-npm run build
-```
-
-You can preview the production build with `npm run preview`.
-
-> To deploy your app, you may need to install an [adapter](https://svelte.dev/docs/kit/adapters) for your target environment.
+Whether you’re a beginner or a pro, this tool helps you level up your fretboard knowledge, soloing skills, and music theory. All wrapped in a sleek, intuitive interface.
