@@ -261,7 +261,7 @@
 <main>
 	<div class="my-2">
 		<!-- Preset selector at the top -->
-		<div class="mb-4 flex flex-row items-center justify-start gap-4 px-8">
+		<div class="mx-2 flex flex-row items-center justify-start gap-4">
 			<select
 				class="text-md rounded border-1 border-ctp-surface2 bg-ctp-mantle px-2 py-1 font-semibold text-ctp-text shadow focus:border-ctp-blue focus:outline-none"
 			>
@@ -291,7 +291,7 @@
 		</div>
 
 		<!-- Fretboard -->
-		<div class="my-2 overflow-x-auto">
+		<div class="my-1 overflow-x-auto">
 			<div class="min-w-max">
 				<!-- Fret numbers header -->
 				<div class="flex px-2">
