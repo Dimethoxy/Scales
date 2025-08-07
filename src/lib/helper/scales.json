@@ -1,49 +1,61 @@
 {
 	"scales": [
 		{
-			"name": "Pentatonic",
-			"modes": [
-				{ "name": "Mode I", "degrees": [0, 2, 4, 7, 9] },
-				{ "name": "Mode II" },
-				{ "name": "Mode III" },
-				{ "name": "Mode IV" },
-				{ "name": "Mode V" }
-			]
-		},
-		{
 			"name": "Diatonic",
 			"modes": [
 				{ "name": "Ionian", "degrees": [0, 2, 4, 5, 7, 9, 11] },
-				{ "name": "Dorian" },
-				{ "name": "Phrygian" },
-				{ "name": "Lydian" },
-				{ "name": "Mixolydian" },
-				{ "name": "Aeolian" },
-				{ "name": "Locrian" }
+				{ "name": "Dorian", "degrees": [0, 2, 3, 5, 7, 9, 10] },
+				{ "name": "Phrygian", "degrees": [0, 1, 3, 5, 7, 8, 10] },
+				{ "name": "Lydian", "degrees": [0, 2, 4, 6, 7, 9, 11] },
+				{ "name": "Mixolydian", "degrees": [0, 2, 4, 5, 7, 9, 10] },
+				{ "name": "Aeolian", "degrees": [0, 2, 3, 5, 7, 8, 10] },
+				{ "name": "Locrian", "degrees": [0, 1, 3, 5, 6, 8, 10] }
 			]
 		},
 		{
 			"name": "Harmonic Minor",
 			"modes": [
-				{ "name": "Mode I", "degrees": [0, 2, 3, 5, 7, 8, 11] },
-				{ "name": "Mode II" },
-				{ "name": "Mode III" },
-				{ "name": "Mode IV" },
-				{ "name": "Mode V" },
-				{ "name": "Mode VI" },
-				{ "name": "Mode VII" }
+				{ "name": "Harmonic Minor", "degrees": [0, 2, 3, 5, 7, 8, 11] },
+				{ "name": "Locrian ♯6", "degrees": [0, 1, 3, 5, 6, 9, 10] },
+				{ "name": "Ionian ♯5", "degrees": [0, 2, 4, 5, 8, 9, 11] },
+				{ "name": "Dorian ♯4", "degrees": [0, 2, 3, 6, 7, 9, 10] },
+				{ "name": "Phrygian Dominant", "degrees": [0, 1, 4, 5, 7, 8, 10] },
+				{ "name": "Lydian ♯2", "degrees": [0, 3, 4, 6, 7, 9, 11] },
+				{ "name": "Super Locrian ♭♭7", "degrees": [0, 1, 3, 4, 6, 8, 9] }
+			]
+		},
+		{
+			"name": "Double Harmonic Major",
+			"modes": [
+				{ "name": "Double Harmonic", "degrees": [0, 1, 4, 5, 7, 8, 11] },
+				{ "name": "Lydian ♯2 ♯6", "degrees": [0, 3, 4, 6, 7, 10, 11] },
+				{ "name": "Ultraphrygian", "degrees": [0, 1, 3, 4, 7, 8, 9] },
+				{ "name": "Hungarian Minor", "degrees": [0, 2, 3, 6, 7, 8, 11] },
+				{ "name": "Oriental", "degrees": [0, 1, 4, 5, 6, 9, 10] },
+				{ "name": "Ionian ♭2 ♭5", "degrees": [0, 3, 4, 5, 8, 9, 11] },
+				{ "name": "Locrian ♯3 ♯7", "degrees": [0, 1, 2, 5, 6, 8, 9] }
 			]
 		},
 		{
 			"name": "Melodic Minor",
 			"modes": [
-				{ "name": "Mode I", "degrees": [0, 2, 3, 5, 7, 9, 11] },
-				{ "name": "Mode II" },
-				{ "name": "Mode III" },
-				{ "name": "Mode IV" },
-				{ "name": "Mode V" },
-				{ "name": "Mode VI" },
-				{ "name": "Mode VII" }
+				{ "name": "Melodic Minor", "degrees": [0, 2, 3, 5, 7, 9, 11] },
+				{ "name": "Dorian ♭2", "degrees": [0, 1, 3, 5, 7, 9, 10] },
+				{ "name": "Lydian Augmented", "degrees": [0, 2, 4, 6, 8, 9, 11] },
+				{ "name": "Lydian Dominant", "degrees": [0, 2, 4, 6, 7, 9, 10] },
+				{ "name": "Mixolydian ♭6", "degrees": [0, 2, 4, 5, 7, 8, 10] },
+				{ "name": "Aeolian ♭5", "degrees": [0, 2, 3, 5, 6, 8, 10] },
+				{ "name": "Super Locrian", "degrees": [0, 1, 3, 4, 6, 8, 10] }
+			]
+		},
+		{
+			"name": "Pentatonic",
+			"modes": [
+				{ "name": "Major", "degrees": [0, 2, 4, 7, 9] },
+				{ "name": "Minor", "degrees": [0, 3, 5, 7, 10] },
+				{ "name": "Dorian", "degrees": [0, 2, 5, 7, 9] },
+				{ "name": "Phrygian", "degrees": [0, 3, 5, 8, 10] },
+				{ "name": "Mixolydian", "degrees": [0, 2, 5, 7, 10] }
 			]
 		}
 	]

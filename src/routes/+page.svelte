@@ -92,9 +92,7 @@
 		if (!isCustom) {
 			const scale = scalesData[selectedScaleIndex];
 			const mode = scale.modes[selectedModeIndex];
-			let baseDegrees = scale.modes[0].degrees || [];
-			let offset = selectedModeIndex;
-			let modeDegrees = mode.degrees ? mode.degrees : offsetDegrees(baseDegrees, offset);
+			const modeDegrees = mode.degrees || [];
 			degrees = degrees.map((d) => ({
 				...d,
 				active: modeDegrees.includes(d.index)
@@ -257,18 +255,13 @@
 	// Toggle degree active state and try to match a known scale/mode
 	function toggleDegree(index: number) {
 		degrees[index].active = !degrees[index].active;
-		// Get current active degrees
 		const currentActive = degrees.filter((d) => d.active).map((d) => d.index);
 		let foundMatch = false;
 		// Search all scales/modes except Custom
 		for (let i = 0; i < baseScalesData.length; i++) {
 			const scale = baseScalesData[i];
 			for (let j = 0; j < scale.modes.length; j++) {
-				let modeDegrees = scale.modes[j].degrees;
-				if (!modeDegrees && scale.modes[0].degrees) {
-					// If degrees not defined, offset base degrees
-					modeDegrees = offsetDegrees(scale.modes[0].degrees, j);
-				}
+				const modeDegrees = scale.modes[j].degrees;
 				if (modeDegrees && arraysEqual(currentActive, modeDegrees)) {
 					selectedScaleIndex = i;
 					selectedModeIndex = j;
