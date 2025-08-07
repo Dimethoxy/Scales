@@ -280,7 +280,7 @@
 		}
 	}
 
-	let numFrets = 18;
+	let numFrets = 16;
 
 	function addString() {
 		const newIndex = instrumentStrings.length;
@@ -379,14 +379,14 @@
 					<input type="checkbox" class="peer sr-only" bind:checked={onlyShowActiveNotes} />
 					<span class="mx-2 text-sm font-medium text-ctp-text">Only show active Notes</span>
 					<div
-						class="peer relative h-6 w-11 rounded-full border border-ctp-surface2 bg-ctp-mantle peer-checked:bg-ctp-surface2 after:absolute after:start-[2px] after:top-0.5 after:h-5 after:w-5 after:rounded-full after:bg-ctp-text after:transition-all after:content-[''] peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full"
+						class="peer relative h-6 w-11 rounded-full border-ctp-surface2 bg-ctp-mantle outline outline-ctp-surface2 peer-checked:bg-ctp-surface2 peer-checked:outline-ctp-text after:absolute after:start-[2px] after:top-0.5 after:h-5 after:w-5 after:rounded-full after:bg-ctp-text after:transition-all after:content-[''] peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full"
 					></div>
 				</label>
 				<label class="inline-flex cursor-pointer items-center">
 					<span class="mx-2 text-sm font-medium text-ctp-text">Display Degrees</span>
 					<input type="checkbox" class="peer sr-only" bind:checked={displayDegrees} />
 					<div
-						class="peer relative h-6 w-11 rounded-full border border-ctp-surface2 bg-ctp-mantle peer-checked:bg-ctp-surface2 after:absolute after:start-[2px] after:top-0.5 after:h-5 after:w-5 after:rounded-full after:bg-ctp-text after:transition-all after:content-[''] peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full"
+						class="peer relative h-6 w-11 rounded-full border-ctp-surface2 bg-ctp-mantle outline outline-ctp-surface2 peer-checked:bg-ctp-surface2 peer-checked:outline-ctp-text after:absolute after:start-[2px] after:top-0.5 after:h-5 after:w-5 after:rounded-full after:bg-ctp-text after:transition-all after:content-[''] peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full"
 					></div>
 				</label>
 			</div>
@@ -396,9 +396,9 @@
 		<div class="my-1 overflow-x-auto">
 			<div class="min-w-max">
 				<!-- Fret numbers header -->
-				<div class="flex px-2">
+				<div class="flex px-1">
 					<!-- Empty space for string tuning column -->
-					<div class="w-16"></div>
+					<div class="w-8"></div>
 					<!-- Fret numbers -->
 					{#each Array(numFrets + 1) as _, fret}
 						<div class="flex min-w-12 flex-1 items-center justify-center text-lg text-ctp-subtext0">
