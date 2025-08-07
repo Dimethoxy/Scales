@@ -319,33 +319,33 @@
 				<div class="mx-1 rounded border border-ctp-surface0 bg-ctp-base">
 					{#each instrumentStrings as string, stringIndex}
 						<div class="flex items-center border-b border-ctp-surface0 last:border-b-0">
-							<!-- String tuning with invisible chevron buttons -->
+							<!-- String tuning with vertical chevron buttons -->
 							<div
-								class="flex w-16 items-center justify-center gap-1 text-center text-sm font-bold text-ctp-text"
+								class="flex w-8 flex-col items-center justify-center text-center text-sm font-bold text-ctp-text"
 							>
-								<!-- Up button (chevron up) -->
+								<!-- Up button (chevron up) - minimal height -->
 								<button
 									type="button"
-									class="flex h-6 w-6 items-center justify-center border-none bg-transparent p-0 focus:outline-none"
+									class="flex h-3 w-12 items-center justify-center border-none bg-transparent p-0 focus:outline-none"
 									title="Tune up"
 									aria-label="Tune string up"
 									on:click={() => retuneString(stringIndex, 1)}
 									style="background: none;"
 								>
-									<i class="fa-solid fa-chevron-up text-ctp-green"></i>
+									<i class="fa-solid fa-chevron-up text-xs text-ctp-overlay2"></i>
 								</button>
 								<!-- Root label -->
-								<span>{string.root.name}{string.root.octave}</span>
-								<!-- Down button (chevron down) -->
+								<span class="scroll">{string.root.name}{string.root.octave}</span>
+								<!-- Down button (chevron down) - minimal height -->
 								<button
 									type="button"
-									class="flex h-6 w-6 items-center justify-center border-none bg-transparent p-0 focus:outline-none"
+									class="flex h-3 w-12 items-center justify-center border-none bg-transparent p-0 focus:outline-none"
 									title="Tune down"
 									aria-label="Tune string down"
 									on:click={() => retuneString(stringIndex, -1)}
 									style="background: none;"
 								>
-									<i class="fa-solid fa-chevron-down text-ctp-red"></i>
+									<i class="fa-solid fa-chevron-down text-xs text-ctp-overlay2"></i>
 								</button>
 							</div>
 
