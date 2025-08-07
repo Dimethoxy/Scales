@@ -1,0 +1,50 @@
+{
+	"scales": [
+		{
+			"name": "Pentatonic",
+			"modes": [
+				{ "name": "Mode I", "degrees": [0, 2, 4, 7, 9] },
+				{ "name": "Mode II" },
+				{ "name": "Mode III" },
+				{ "name": "Mode IV" },
+				{ "name": "Mode V" }
+			]
+		},
+		{
+			"name": "Diatonic",
+			"modes": [
+				{ "name": "Ionian", "degrees": [0, 2, 4, 5, 7, 9, 11] },
+				{ "name": "Dorian" },
+				{ "name": "Phrygian" },
+				{ "name": "Lydian" },
+				{ "name": "Mixolydian" },
+				{ "name": "Aeolian" },
+				{ "name": "Locrian" }
+			]
+		},
+		{
+			"name": "Harmonic Minor",
+			"modes": [
+				{ "name": "Mode I", "degrees": [0, 2, 3, 5, 7, 8, 11] },
+				{ "name": "Mode II" },
+				{ "name": "Mode III" },
+				{ "name": "Mode IV" },
+				{ "name": "Mode V" },
+				{ "name": "Mode VI" },
+				{ "name": "Mode VII" }
+			]
+		},
+		{
+			"name": "Melodic Minor",
+			"modes": [
+				{ "name": "Mode I", "degrees": [0, 2, 3, 5, 7, 9, 11] },
+				{ "name": "Mode II" },
+				{ "name": "Mode III" },
+				{ "name": "Mode IV" },
+				{ "name": "Mode V" },
+				{ "name": "Mode VI" },
+				{ "name": "Mode VII" }
+			]
+		}
+	]
+}

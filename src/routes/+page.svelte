@@ -47,9 +47,59 @@
 	// Current root note for the scale
 	let scaleRoot: Note = { name: 'C', octave: 4 };
 
+	// Scales and modes loaded from JSON
+
+	import scalesDataRaw from '../lib/helper/scales.json';
+	type ScalePreset = {
+		name: string;
+		modes: { name: string; degrees?: number[] }[];
+	};
+	const baseScalesData: ScalePreset[] = scalesDataRaw.scales;
+
+	// Add 'Custom' scale and mode
+	const customScale: ScalePreset = {
+		name: 'Custom',
+		modes: [{ name: 'Custom' }]
+	};
+	const scalesData: ScalePreset[] = [...baseScalesData, customScale];
+
+	let selectedScaleIndex = 0;
+	let selectedModeIndex = 0;
+	let isCustom = false;
+
 	function handleRootChange(e: Event) {
 		const selectedName = (e.target as HTMLSelectElement).value as NoteName;
 		scaleRoot = { ...scaleRoot, name: selectedName };
+	}
+
+	function handleScaleChange(e: Event) {
+		selectedScaleIndex = (e.target as HTMLSelectElement).selectedIndex;
+		selectedModeIndex = 0;
+		isCustom = scalesData[selectedScaleIndex].name === 'Custom';
+	}
+
+	function handleModeChange(e: Event) {
+		selectedModeIndex = (e.target as HTMLSelectElement).selectedIndex;
+		isCustom = scalesData[selectedScaleIndex].name === 'Custom';
+	}
+
+	function offsetDegrees(degrees: number[], offset: number): number[] {
+		return degrees.map((d) => (d + offset) % 12);
+	}
+
+	// Reactive statement: update degrees when scale/mode changes, unless 'Custom' is selected
+	$: {
+		if (!isCustom) {
+			const scale = scalesData[selectedScaleIndex];
+			const mode = scale.modes[selectedModeIndex];
+			let baseDegrees = scale.modes[0].degrees || [];
+			let offset = selectedModeIndex;
+			let modeDegrees = mode.degrees ? mode.degrees : offsetDegrees(baseDegrees, offset);
+			degrees = degrees.map((d) => ({
+				...d,
+				active: modeDegrees.includes(d.index)
+			}));
+		}
 	}
 
 	type Degree = {
@@ -196,10 +246,15 @@
 	// Current degree active states (for toggling)
 	let activeDegrees: boolean[] = Array(degrees.length).fill(false);
 
-	// Toggle degree active state
+	// Toggle degree active state and switch to Custom mode
 	function toggleDegree(index: number) {
-		activeDegrees[index] = !activeDegrees[index];
-		degrees[index].active = activeDegrees[index];
+		degrees[index].active = !degrees[index].active;
+		// Switch to Custom scale/mode if not already
+		if (!isCustom) {
+			selectedScaleIndex = scalesData.length - 1;
+			selectedModeIndex = 0;
+			isCustom = true;
+		}
 	}
 
 	let numFrets = 18;
@@ -278,22 +333,21 @@
 			</select>
 			<select
 				class="text-md rounded border-1 border-ctp-surface2 bg-ctp-mantle px-2 py-1 font-semibold text-ctp-text shadow focus:border-ctp-blue focus:outline-none"
+				on:change={handleScaleChange}
+				bind:value={selectedScaleIndex}
 			>
-				<option>Pentatonic</option>
-				<option>Diatonic</option>
-				<option>Harmonic Minor</option>
-				<option>Melodic Minor</option>
+				{#each scalesData as scale, i}
+					<option value={i}>{scale.name}</option>
+				{/each}
 			</select>
 			<select
 				class="text-md rounded border-1 border-ctp-surface2 bg-ctp-mantle px-2 py-1 font-semibold text-ctp-text shadow focus:border-ctp-blue focus:outline-none"
+				on:change={handleModeChange}
+				bind:value={selectedModeIndex}
 			>
-				<option>Mode I</option>
-				<option>Mode II</option>
-				<option>Mode III</option>
-				<option>Mode IV</option>
-				<option>Mode V</option>
-				<option>Mode VI</option>
-				<option>Mode VII</option>
+				{#each scalesData[selectedScaleIndex].modes as mode, j}
+					<option value={j}>{mode.name}</option>
+				{/each}
 			</select>
 		</div>
 
@@ -412,10 +466,7 @@
 							class="flex h-12 w-12 cursor-pointer items-center justify-center rounded-full border border-ctp-surface2 text-xl font-bold text-ctp-crust {d.active
 								? d.color
 								: 'bg-ctp-mantle  text-ctp-surface2'}"
-							on:click={() => {
-								d.active = !d.active;
-								console.log(d.index);
-							}}
+							on:click={() => toggleDegree(d.index)}
 							on:mouseenter={(e) => handleDegreeMouseEnter(e, d)}
 							on:mouseleave={handleDegreeMouseLeave}
 						>
@@ -431,10 +482,7 @@
 							class="flex h-12 w-12 cursor-pointer items-center justify-center rounded-full border border-ctp-surface2 text-xl font-bold text-ctp-crust {d.active
 								? d.color
 								: 'bg-ctp-mantle text-ctp-surface2'}"
-							on:click={() => {
-								d.active = !d.active;
-								console.log(d.color);
-							}}
+							on:click={() => toggleDegree(d.index)}
 							on:mouseenter={(e) => handleDegreeMouseEnter(e, d)}
 							on:mouseleave={handleDegreeMouseLeave}
 						>
