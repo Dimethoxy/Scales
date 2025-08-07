@@ -396,7 +396,7 @@
 		<div class="my-1 overflow-x-auto">
 			<div class="min-w-max">
 				<!-- Fret numbers header -->
-				<div class="flex px-1">
+				<div class="flex px-2">
 					<!-- Empty space for string tuning column -->
 					<div class="w-8"></div>
 					<!-- Fret numbers -->
@@ -408,9 +408,9 @@
 				</div>
 
 				<!-- Fretboard grid -->
-				<div class="mx-1 rounded border border-ctp-surface0 bg-ctp-base">
+				<div class="mx-1 rounded border-2 border-ctp-surface2 bg-ctp-base">
 					{#each instrumentStrings as string, stringIndex}
-						<div class="flex items-center border-b border-ctp-surface0 last:border-b-0">
+						<div class="flex items-center border-1 border-ctp-surface2">
 							<!-- String tuning with vertical chevron buttons -->
 							<div
 								class="flex w-8 flex-col items-center justify-center text-center text-sm font-bold text-ctp-text"
@@ -418,7 +418,7 @@
 								<!-- Up button (chevron up) - minimal height -->
 								<button
 									type="button"
-									class="flex h-3 w-12 items-center justify-center border-none bg-transparent p-0 focus:outline-none"
+									class="flex h-3 w-10 items-center justify-center border-none bg-transparent p-0 focus:outline-none"
 									title="Tune up"
 									aria-label="Tune string up"
 									on:click={() => retuneString(stringIndex, 1)}
@@ -431,7 +431,7 @@
 								<!-- Down button (chevron down) - minimal height -->
 								<button
 									type="button"
-									class="flex h-3 w-12 items-center justify-center border-none bg-transparent p-0 focus:outline-none"
+									class="flex h-3 w-10 items-center justify-center border-none bg-transparent p-0 focus:outline-none"
 									title="Tune down"
 									aria-label="Tune string down"
 									on:click={() => retuneString(stringIndex, -1)}
@@ -448,16 +448,16 @@
 								<div class="relative flex h-12 min-w-12 flex-1 items-center justify-center">
 									<!-- Fret marker (visual fret line) -->
 									{#if fret > 0}
-										<div class="absolute top-0 left-0 h-full w-px bg-ctp-surface2"></div>
+										<div class="absolute top-0 left-0 h-full w-px bg-ctp-surface0"></div>
 									{/if}
 
 									<!-- String line -->
-									<div class="absolute h-px w-full bg-ctp-surface2"></div>
+									<div class="absolute h-px w-full bg-ctp-surface2" hidden></div>
 
 									<!-- Note indicator -->
 									{#if note && (!onlyShowActiveNotes || scaleDegree >= 0)}
 										<div
-											class="text-md relative z-10 flex h-10 w-10 items-center justify-center rounded-full border border-ctp-surface0 font-bold text-ctp-crust
+											class="text-md relative z-10 flex h-11 w-11 items-center justify-center rounded-full border border-ctp-surface0 font-bold text-ctp-crust
 											{scaleDegree >= 0 ? getDegreeColor(scaleDegree) : 'bg-ctp-mantle text-ctp-surface2'}"
 										>
 											{#if displayDegrees}
