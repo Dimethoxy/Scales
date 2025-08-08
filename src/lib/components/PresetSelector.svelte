@@ -16,10 +16,11 @@
 	export let setDisplayDegrees;
 </script>
 
-<div class="mx-2 flex flex-row items-center justify-between gap-4">
-	<div class="flex flex-row items-center gap-4">
+<div class="mx-2 flex flex-wrap items-center justify-between gap-2">
+	<!-- Preset Selector -->
+	<div class="flex min-w-0 flex-shrink-0 flex-row items-center gap-1">
 		<select
-			class="text-md rounded border-1 border-ctp-surface2 bg-ctp-mantle px-2 py-1 font-semibold text-ctp-text shadow focus:border-ctp-blue focus:outline-none"
+			class="rounded border-1 border-ctp-surface2 bg-ctp-mantle px-2 py-1 text-sm font-semibold text-ctp-text shadow focus:border-ctp-blue focus:outline-none"
 			bind:value={selectedTuningIndex}
 			on:change={(e) => setTuning((e.target as HTMLSelectElement).selectedIndex)}
 		>
@@ -28,7 +29,7 @@
 			{/each}
 		</select>
 		<select
-			class="text-md rounded border-1 border-ctp-surface2 bg-ctp-mantle px-2 py-1 font-semibold text-ctp-text shadow focus:border-ctp-blue focus:outline-none"
+			class="rounded border-1 border-ctp-surface2 bg-ctp-mantle px-2 py-1 text-sm font-semibold text-ctp-text shadow focus:border-ctp-blue focus:outline-none"
 			bind:value={scaleRoot.name}
 			on:change={handleRootChange}
 		>
@@ -37,7 +38,7 @@
 			{/each}
 		</select>
 		<select
-			class="text-md rounded border-1 border-ctp-surface2 bg-ctp-mantle px-2 py-1 font-semibold text-ctp-text shadow focus:border-ctp-blue focus:outline-none"
+			class="rounded border-1 border-ctp-surface2 bg-ctp-mantle px-2 py-1 text-sm font-semibold text-ctp-text shadow focus:border-ctp-blue focus:outline-none"
 			on:change={handleScaleChange}
 			bind:value={selectedScaleIndex}
 		>
@@ -46,7 +47,7 @@
 			{/each}
 		</select>
 		<select
-			class="text-md rounded border-1 border-ctp-surface2 bg-ctp-mantle px-2 py-1 font-semibold text-ctp-text shadow focus:border-ctp-blue focus:outline-none"
+			class="rounded border-1 border-ctp-surface2 bg-ctp-mantle px-2 py-1 text-sm font-semibold text-ctp-text shadow focus:border-ctp-blue focus:outline-none"
 			on:change={handleModeChange}
 			bind:value={selectedModeIndex}
 		>
@@ -55,7 +56,8 @@
 			{/each}
 		</select>
 	</div>
-	<div class="mx-2 flex flex-row items-center gap-6">
+	<!-- Toggle Options -->
+	<div class="flex flex-shrink-0 flex-row items-center gap-2">
 		<label class="inline-flex cursor-pointer items-center">
 			<input
 				type="checkbox"
@@ -63,13 +65,13 @@
 				bind:checked={onlyShowActiveNotes}
 				on:change={setOnlyShowActiveNotes}
 			/>
-			<span class="mx-2 text-sm font-medium text-ctp-text">Only show active Notes</span>
+			<span class="mr-2 text-sm font-medium text-ctp-text">Only show active Notes</span>
 			<div
-				class="peer relative h-6 w-11 rounded-full border-ctp-surface2 bg-ctp-mantle outline outline-ctp-surface2 peer-checked:bg-ctp-surface2 peer-checked:outline-ctp-text after:absolute after:start-[2px] after:top-0.5 after:h-5 after:w-5 after:rounded-full after:bg-ctp-text after:transition-all after:content-[''] peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full"
+				class="peer relative h-5 w-9 rounded-full border-ctp-surface2 bg-ctp-mantle outline outline-ctp-surface2 peer-checked:bg-ctp-surface2 peer-checked:outline-ctp-text after:absolute after:start-[2px] after:top-0.5 after:h-4 after:w-4 after:rounded-full after:bg-ctp-text after:transition-all after:content-[''] peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full"
 			></div>
 		</label>
 		<label class="inline-flex cursor-pointer items-center">
-			<span class="mx-2 text-sm font-medium text-ctp-text">Display Degrees</span>
+			<span class="mr-2 text-sm font-medium text-ctp-text">Display Degrees</span>
 			<input
 				type="checkbox"
 				class="peer sr-only"
@@ -77,7 +79,7 @@
 				on:change={setDisplayDegrees}
 			/>
 			<div
-				class="peer relative h-6 w-11 rounded-full border-ctp-surface2 bg-ctp-mantle outline outline-ctp-surface2 peer-checked:bg-ctp-surface2 peer-checked:outline-ctp-text after:absolute after:start-[2px] after:top-0.5 after:h-5 after:w-5 after:rounded-full after:bg-ctp-text after:transition-all after:content-[''] peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full"
+				class="peer relative h-5 w-9 rounded-full border-ctp-surface2 bg-ctp-mantle outline outline-ctp-surface2 peer-checked:bg-ctp-surface2 peer-checked:outline-ctp-text after:absolute after:start-[2px] after:top-0.5 after:h-4 after:w-4 after:rounded-full after:bg-ctp-text after:transition-all after:content-[''] peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full"
 			></div>
 		</label>
 	</div>
