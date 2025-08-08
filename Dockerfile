@@ -1,29 +1,25 @@
 # Use Nginx as base image
 FROM nginx:latest
 
-# Install Git and Node.js + npm
-RUN apt-get update && apt-get install -y git nodejs npm
+# Install Git and curl
+RUN apt-get update && apt-get install -y git curl
 
-# Set working directory for clone/build
+# Set working directory
 WORKDIR /app
-
-# Clone repo
-RUN git clone https://github.com/Dimethoxy/Scales.git .
-
-# Install deps and build
-RUN npm install && npm run build
-
-# Clean nginx content dir and copy built files
-RUN rm -rf /usr/share/nginx/html/* && \
-    cp -r build/* /usr/share/nginx/html/
+        
+# Create startup script
+RUN echo "#!/bin/sh" > /startup.sh && \
+    echo "rm -rf /app && mkdir /app && cd /app" >> /startup.sh && \
+    echo "git clone https://github.com/Dimethoxy/Scales.git . || exit 1" >> /startup.sh && \
+    echo "npm install --legacy-peer-deps && npm run build || exit 1" >> /startup.sh && \
+    echo "rm -rf /usr/share/nginx/html/*" >> /startup.sh && \
+    echo "cp -r build/* /usr/share/nginx/html/" >> /startup.sh && \
+    echo "cd .." >> /startup.sh && \
+    echo "rm -rf /app" >> /startup.sh && \
+    chmod +x /startup.sh
 
 # Expose nginx port
 EXPOSE 80
 
-# Create update+rebuild script for container startup
-RUN echo "#!/bin/sh" > /update.sh && \
-    echo "cd /app && git pull && npm install && npm run build && cp -r build/* /usr/share/nginx/html/" >> /update.sh && \
-    chmod +x /update.sh
-
-# Run update script and then start nginx
-CMD /update.sh && nginx -g 'daemon off;'
+# Run the startup script then launch nginx
+CMD /startup.sh && nginx -g 'daemon off;'
