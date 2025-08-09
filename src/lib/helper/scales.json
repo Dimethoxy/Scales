@@ -37,9 +37,9 @@
 			]
 		},
 		{
-			"name": "Double Harmonic Major",
+			"name": "Double Harmonic",
 			"modes": [
-				{ "name": "Double Harmonic", "degrees": [0, 1, 4, 5, 7, 8, 11] },
+				{ "name": "Hungarian Major", "degrees": [0, 1, 4, 5, 7, 8, 11] },
 				{ "name": "Lydian ♯2 ♯6", "degrees": [0, 3, 4, 6, 7, 10, 11] },
 				{ "name": "Ultraphrygian", "degrees": [0, 1, 3, 4, 7, 8, 9] },
 				{ "name": "Hungarian Minor", "degrees": [0, 2, 3, 6, 7, 8, 11] },
@@ -58,6 +58,18 @@
 				{ "name": "Mixolydian ♭6", "degrees": [0, 2, 4, 5, 7, 8, 10] },
 				{ "name": "Aeolian ♭5", "degrees": [0, 2, 3, 5, 6, 8, 10] },
 				{ "name": "Super Locrian", "degrees": [0, 1, 3, 4, 6, 8, 10] }
+			]
+		},
+		{
+			"name": "Hungarian Major",
+			"modes": [
+				{ "name": "Hungarian Major", "degrees": [0, 3, 4, 6, 7, 9, 10] },
+				{ "name": "Altered Diminished ♭♭6", "degrees": [0, 1, 3, 4, 6, 7, 9] },
+				{ "name": "Harmonic Minor ♭5", "degrees": [0, 2, 3, 5, 6, 8, 11] },
+				{ "name": "Altered Dominant ♮6", "degrees": [0, 1, 3, 4, 6, 9, 10] },
+				{ "name": "Melodic Minor ♯5", "degrees": [0, 2, 3, 5, 8, 9, 11] },
+				{ "name": "Ukrainian Dorian ♭2", "degrees": [0, 1, 3, 6, 7, 9, 10] },
+				{ "name": "Lydian Augmented ♯3", "degrees": [0, 2, 5, 6, 8, 9, 11] }
 			]
 		},
 		{
