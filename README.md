@@ -4,6 +4,10 @@
 
 Master guitar scales with ease using Scales Trainer, the ultimate web app for visualizing and practicing scales across any number of strings and up to 24 frets. Choose your tuning, pick from an endless selection of scales and modes, and explore colorful, intuitive fretboard patterns.
 
+<div align="center">
+  <img src="https://raw.githubusercontent.com/Dimethoxy/Scales/refs/heads/main/screenshots/mocha.jpg" alt="Image of the GUI" style="width: 100%;">
+</div>
+
 ## Features
 
 - Supports arbitrary string counts — from 6 up to 9 strings (and beyond)  
