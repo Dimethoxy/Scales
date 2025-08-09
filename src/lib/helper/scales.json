@@ -83,6 +83,17 @@
 			]
 		},
 		{
+			"name": "Hexatonic",
+			"modes": [
+				{ "name": "Major", "degrees": [0, 2, 4, 5, 7, 9] },
+				{ "name": "Minor", "degrees": [0, 2, 3, 5, 7, 10] },
+				{ "name": "Ritsu Onkai", "degrees": [0, 1, 3, 5, 8, 10] },
+				{ "name": "Raga Kumud", "degrees": [0, 2, 4, 7, 9, 11] },
+				{ "name": "Mixolydian", "degrees": [0, 2, 5, 7, 9, 10] },
+				{ "name": "Phrygian", "degrees": [0, 3, 5, 7, 8, 10] }
+			]
+		},
+		{
 			"name": "Blues",
 			"modes": [
 				{ "name": "Major", "degrees": [0, 2, 3, 4, 7, 9] },
