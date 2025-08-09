@@ -12,11 +12,11 @@ Master guitar scales with ease using Scales Trainer, the ultimate web app for vi
 </div>
 
 ## Features
-- 🎯 **Any Tuning, Any String Count** — From 6 to 9 strings (and beyond)  
-- 🎵 **Huge Scale Library** — Endless scales and modes for all styles  
-- 🎨 **Color-Coded Notes & Degrees** — Instantly see patterns and intervals  
-- 👀 **Custom Views** — Show only active notes or scale degrees  
-- 🖌 **Modern Themes** — Powered by [Catppuccin](https://catppuccin.com/) 
+- **Any Tuning, Any String Count:** From 6 to 9 strings (and beyond)  
+- **Huge Scale Library:** Endless scales and modes for all styles  
+- **Color-Coded Notes & Degrees:** Instantly see patterns and intervals  
+- **Custom Views:** Show only active notes or scale degrees  
+- **Modern Themes:** Powered by [Catppuccin](https://catppuccin.com/) 
 
 ## Why Use Scales Trainer?
 
