@@ -403,17 +403,18 @@
 			{retuneString}
 		/>
 
-		<div class="my-4 flex flex-row items-center justify-between px-8">
+		<div class="mx-2 my-1 flex flex-row items-center justify-between">
 			<StringControls {instrumentStrings} {addString} {removeString} />
-			<DegreeSelector
-				{accidentalDegrees}
-				{naturalDegrees}
-				{toggleDegree}
-				{handleDegreeMouseEnter}
-				{handleDegreeMouseLeave}
-			/>
+
 			<FretControls {numFrets} setNumFrets={(n: number) => (numFrets = n)} />
 		</div>
+		<DegreeSelector
+			{accidentalDegrees}
+			{naturalDegrees}
+			{toggleDegree}
+			{handleDegreeMouseEnter}
+			{handleDegreeMouseLeave}
+		/>
 
 		<Tooltip {showTooltip} {tooltipContent} {tooltipX} {tooltipY} />
 	</div>
