@@ -30,7 +30,7 @@
 			id="theme-select"
 			bind:value={selectedTheme}
 			on:change={changeTheme}
-			class="rounded bg-ctp-base px-2 py-1"
+			class="rounded bg-ctp-base px-2 py-1 text-sm font-semibold text-ctp-text shadow focus:border-ctp-peach focus:outline-1 focus:outline-ctp-peach"
 		>
 			{#each themes as theme}
 				<option value={theme}>{theme.charAt(0).toUpperCase() + theme.slice(1)}</option>

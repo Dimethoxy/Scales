@@ -20,7 +20,7 @@
 	<!-- Preset Selector -->
 	<div class="flex min-w-0 flex-shrink-0 flex-row items-center gap-1">
 		<select
-			class="rounded border-1 border-ctp-surface2 bg-ctp-mantle px-2 py-1 text-sm font-semibold text-ctp-text shadow focus:border-ctp-blue focus:outline-none"
+			class="rounded border-1 border-ctp-surface2 bg-ctp-mantle px-2 py-1 text-sm font-semibold text-ctp-text shadow focus:border-ctp-peach focus:outline-ctp-peach"
 			bind:value={selectedTuningIndex}
 			on:change={(e) => setTuning((e.target as HTMLSelectElement).selectedIndex)}
 		>
@@ -29,7 +29,7 @@
 			{/each}
 		</select>
 		<select
-			class="rounded border-1 border-ctp-surface2 bg-ctp-mantle px-2 py-1 text-sm font-semibold text-ctp-text shadow focus:border-ctp-blue focus:outline-none"
+			class="rounded border-1 border-ctp-surface2 bg-ctp-mantle px-2 py-1 text-sm font-semibold text-ctp-text shadow focus:border-ctp-peach focus:outline-ctp-peach"
 			bind:value={scaleRoot.name}
 			on:change={handleRootChange}
 		>
@@ -38,7 +38,7 @@
 			{/each}
 		</select>
 		<select
-			class="rounded border-1 border-ctp-surface2 bg-ctp-mantle px-2 py-1 text-sm font-semibold text-ctp-text shadow focus:border-ctp-blue focus:outline-none"
+			class="rounded border-1 border-ctp-surface2 bg-ctp-mantle px-2 py-1 text-sm font-semibold text-ctp-text shadow focus:border-ctp-peach focus:outline-ctp-peach"
 			on:change={handleScaleChange}
 			bind:value={selectedScaleIndex}
 		>
