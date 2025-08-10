@@ -47,7 +47,7 @@
 			{/each}
 		</select>
 		<select
-			class="rounded border-1 border-ctp-surface2 bg-ctp-mantle px-2 py-1 text-sm font-semibold text-ctp-text shadow focus:border-ctp-blue focus:outline-none"
+			class="rounded border-1 border-ctp-surface2 bg-ctp-mantle px-2 py-1 text-sm font-semibold text-ctp-text shadow focus:border-ctp-peach focus:outline-ctp-peach"
 			on:change={handleModeChange}
 			bind:value={selectedModeIndex}
 		>

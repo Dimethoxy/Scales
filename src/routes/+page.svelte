@@ -112,7 +112,7 @@
 
 	// Toggle Options
 	let onlyShowActiveNotes = false;
-	let displayDegrees = false;
+	let displayDegrees = true;
 
 	// Reactive statement: update degrees when scale/mode changes, unless 'Custom' is selected
 	$: {
