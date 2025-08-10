@@ -22,7 +22,7 @@
 <header class="flex items-center justify-between bg-ctp-crust px-4 py-2 text-ctp-text">
 	<div class="flex items-center">
 		<h1 class="text-4xl font-bold">Scales Trainer</h1>
-		<h6 class="mx-1 mb-4">v1.1.0</h6>
+		<h6 class="mx-1 mb-4">v1.1.1</h6>
 	</div>
 	<div class="flex items-center space-x-2">
 		<label for="theme-select" class="font-medium">Theme</label>
