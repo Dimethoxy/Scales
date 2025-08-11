@@ -14,7 +14,7 @@
 			{/if}
 			<button
 				type="button"
-				class="flex h-12 w-12 cursor-pointer items-center justify-center rounded-full border border-ctp-surface2 text-xl font-bold text-ctp-crust {d.active
+				class="flex h-12 w-12 cursor-pointer items-center justify-center rounded-full border border-ctp-surface2 text-xl font-bold text-ctp-crust transition-transform hover:scale-105 focus:outline-none active:scale-95 {d.active
 					? d.color
 					: 'bg-ctp-mantle  text-ctp-surface2'} relative"
 				on:click={() => toggleDegree(d.index)}
@@ -34,7 +34,7 @@
 		{#each naturalDegrees as d}
 			<button
 				type="button"
-				class="flex h-12 w-12 cursor-pointer items-center justify-center rounded-full border border-ctp-surface2 text-xl font-bold text-ctp-crust {d.active
+				class="flex h-12 w-12 cursor-pointer items-center justify-center rounded-full border border-ctp-surface2 text-xl font-bold text-ctp-crust transition-transform hover:scale-105 focus:outline-none active:scale-95 {d.active
 					? d.color
 					: 'bg-ctp-mantle text-ctp-surface2'} relative"
 				on:click={() => toggleDegree(d.index)}
