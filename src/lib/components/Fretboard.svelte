@@ -18,7 +18,7 @@
 			<div class="w-8"></div>
 			{#each Array(numFrets + 1) as _, fret}
 				<div class="flex min-w-12 flex-1 items-center justify-center text-lg text-ctp-subtext0">
-					{fret}
+					{#if fret > 0}{fret}{/if}
 				</div>
 			{/each}
 		</div>
@@ -54,7 +54,9 @@
 						{@const note = allStringNotes[stringIndex][fret]}
 						{@const scaleDegree = stringNotesDegrees[stringIndex][fret]}
 						<div class="relative flex h-12 min-w-12 flex-1 items-center justify-center">
-							{#if fret > 0}
+							{#if fret == 1}
+								<div class="absolute top-0 -left-0.75 h-full w-1.5 bg-ctp-surface0"></div>
+							{:else if fret > 1}
 								<div class="absolute top-0 left-0 h-full w-px bg-ctp-surface0"></div>
 							{/if}
 							<div class="absolute h-px w-full bg-ctp-surface2" hidden></div>
