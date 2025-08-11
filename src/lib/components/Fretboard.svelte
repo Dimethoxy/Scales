@@ -71,7 +71,7 @@
 							{#if note && (!onlyShowActiveNotes || scaleDegree >= 0)}
 								<button
 									type="button"
-									class="text-md relative z-10 flex h-11 w-11 cursor-pointer items-center justify-center rounded-full border border-ctp-surface0 font-bold text-ctp-crust transition-transform hover:scale-105 focus:ring-2 focus:ring-ctp-blue focus:outline-none active:scale-95 {scaleDegree >=
+									class="text-md relative z-10 flex h-11 w-11 cursor-pointer items-center justify-center rounded-full border border-ctp-surface0 font-bold text-ctp-crust transition-transform hover:scale-105 focus:ring-2 focus:ring-ctp-text focus:outline-none active:scale-95 {scaleDegree >=
 									0
 										? getDegreeColor(scaleDegree)
 										: 'bg-ctp-mantle text-ctp-surface2'}"
