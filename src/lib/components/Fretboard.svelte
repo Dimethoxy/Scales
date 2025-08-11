@@ -1,4 +1,7 @@
 <script lang="ts">
+	import { playNote } from '$lib/helper/audioEngine';
+	import type { Note } from '$lib/helper/musicTheory';
+
 	export let instrumentStrings;
 	export let allStringNotes;
 	export let stringNotesDegrees;
@@ -10,6 +13,11 @@
 	export let displayDegrees;
 	export let getDegreeColor;
 	export let retuneString;
+
+	// Handle note clicks
+	function handleNoteClick(note: Note) {
+		playNote(note);
+	}
 </script>
 
 <div class="my-1 overflow-x-auto">
@@ -61,11 +69,15 @@
 							{/if}
 							<div class="absolute h-px w-full bg-ctp-surface2" hidden></div>
 							{#if note && (!onlyShowActiveNotes || scaleDegree >= 0)}
-								<div
-									class="text-md relative z-10 flex h-11 w-11 items-center justify-center rounded-full border border-ctp-surface0 font-bold text-ctp-crust {scaleDegree >=
+								<button
+									type="button"
+									class="text-md relative z-10 flex h-11 w-11 cursor-pointer items-center justify-center rounded-full border border-ctp-surface0 font-bold text-ctp-crust transition-transform hover:scale-105 focus:ring-2 focus:ring-ctp-blue focus:outline-none active:scale-95 {scaleDegree >=
 									0
 										? getDegreeColor(scaleDegree)
 										: 'bg-ctp-mantle text-ctp-surface2'}"
+									on:click={() => handleNoteClick(note)}
+									title="Play {note.name}{note.octave}"
+									aria-label="Play note {note.name}{note.octave}"
 								>
 									{#if displayDegrees}
 										{#if note}
@@ -94,7 +106,7 @@
 											{note.name}
 										{/key}
 									{/if}
-								</div>
+								</button>
 							{/if}
 						</div>
 					{/each}
