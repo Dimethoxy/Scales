@@ -23,10 +23,10 @@ Master guitar scales with ease using Scales Trainer, the ultimate web app for vi
 
 ## Why Use Scales Trainer?
 
-Whether you’re learning your first pentatonic box or exploring exotic modes, Scales Trainer helps you **see the fretboard**, **understand theory**, and **improve your solos** — all in one sleek, distraction-free interface.
+Whether you’re learning your first pentatonic box or exploring exotic modes, Scales Trainer helps you **see the fretboard**, **understand theory**, and **improve your solos**, all in one sleek, distraction-free interface.
 
 ## Getting Started
 
 1. **Click the link:** [scales.dimethoxy.com](https://scales.dimethoxy.com)
 2. Pick your tuning, scale, and theme
-3. Start practicing! 🎶
+3. Start practicing!
